@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from repository.database import get_session, OrmBaseModel
 from repository.model.collection import CollectionTable
@@ -21,3 +21,16 @@ def get_collection_by_id(collection_id: int) -> Collection:
     )
     result = query.one()
     return Collection.from_orm(result)
+
+
+def list_collections() -> List[Collection]:
+    session = get_session()
+    results = session.query(CollectionTable).all()
+    return [Collection.from_orm(result) for result in results]
+
+
+def create_collection(collection: Collection):
+    session = get_session()
+    collection = CollectionTable(**collection.dict())
+    session.add(collection)
+    session.commit()
