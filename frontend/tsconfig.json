@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "target": "es5",
+    "lib": ["ES6", "DOM"],
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "allowJs": true,
+    "checkJs": false,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node"
+  },
+  "exclude": [
+    "node_modules",
+    "**/test"
+  ]
+}
