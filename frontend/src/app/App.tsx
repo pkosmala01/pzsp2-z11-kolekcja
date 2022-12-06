@@ -25,6 +25,7 @@ const App = () => {
       <></>
       <Routes>
         <Route path='/' element={<Layout routes={routes}/>}>
+          <Route path='frontend/dist/index.html' element={ <Navigate replace to='/' /> }/>
           <Route path='dist/index.html' element={ <Navigate replace to='/' /> }/>
           <Route path='' element={<HomePage />}/>
           <Route path='collectionsList' element={<CollectionsListPage />}/>
