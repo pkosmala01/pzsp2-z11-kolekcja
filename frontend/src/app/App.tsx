@@ -1,39 +1,35 @@
-import React from 'react';
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
-import { Grid, Container } from '@mui/material';
-import Header from '../components/Header';
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import Layout from '../components/Layout';
+import Layout from "../components/Layout";
 
-import HomePage from '../pages/HomePage';
-import CollectionsListPage from '../pages/CollectionsListPage';
+import HomePage from "../pages/HomePage";
+import CollectionsListPage from "../pages/CollectionsListPage";
 
-const routes = [
+const routes: { title: string; link: string }[] = [
   {
-    title: 'home',
-    link: '/'
-},
-  {
-      title: 'collection',
-      link: '/collectionsList'
+    title: "home",
+    link: "/",
   },
-]
+  {
+    title: "collection",
+    link: "/collectionsList",
+  },
+];
 
 const App = () => {
   return (
-    <>
-      <></>
-      <Routes>
-        <Route path='/' element={<Layout routes={routes}/>}>
-          <Route path='frontend/dist/index.html' element={ <Navigate replace to='/' /> }/>
-          <Route path='dist/index.html' element={ <Navigate replace to='/' /> }/>
-          <Route path='' element={<HomePage />}/>
-          <Route path='collectionsList' element={<CollectionsListPage />}/>
-        </Route>
-      </Routes>
-    </>
-
+    <Routes>
+      <Route path="/" element={<Layout {...routes} />}>
+        <Route
+          path="frontend/dist/index.html"
+          element={<Navigate replace to="/" />}
+        />
+        <Route path="dist/index.html" element={<Navigate replace to="/" />} />
+        <Route path="" element={<HomePage />} />
+        <Route path="collectionsList" element={<CollectionsListPage />} />
+      </Route>
+    </Routes>
   );
-}
+};
 
 export default App;
