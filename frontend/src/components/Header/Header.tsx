@@ -13,7 +13,7 @@ const Header = (routes: { title: string; link: string }[]) => {
         </Grid>
         <Grid item xs={6}>
           <Styled.StackNav>
-            {routes.map((e: { title: string; link: string }, index) => {
+            {/* {routes.map((e: { title: string; link: string }, index) => {
               return (
                 <Styled.BoxTypography key={index}>
                   <Link to={e.link}>
@@ -23,7 +23,7 @@ const Header = (routes: { title: string; link: string }[]) => {
                   </Link>
                 </Styled.BoxTypography>
               );
-            })}
+            })} */}
           </Styled.StackNav>
         </Grid>
         <Grid item xs={3}>
