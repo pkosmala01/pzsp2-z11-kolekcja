@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "8080:8080"

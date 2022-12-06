@@ -5,10 +5,9 @@ from sqlalchemy.orm import declarative_base
 Base = declarative_base()
 
 
-class UserTable(Base, SerializerMixin):
-    __tablename__ = "users"
+class CollectionTable(Base, SerializerMixin):
+    __tablename__ = "collections"
 
-    user_id = Column(Integer, primary_key=True)
-    email = Column(String)
-    password_hash = Column(String)
+    collection_id = Column(Integer, primary_key=True)
     name = Column(String)
+    description = Column(String)
