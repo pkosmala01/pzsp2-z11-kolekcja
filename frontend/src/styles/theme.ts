@@ -5,6 +5,8 @@ const theme = {
   bgBlue: '#D0E1F9',
   fontLight: '#ffffff',
   fontDark: '#000000',
+  white: '#ffffff',
+  black: '#000000',
 }
 
 export default theme;

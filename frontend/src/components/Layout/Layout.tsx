@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
+import { RouteType } from "../../untils/type";
 import Header from "../Header";
 
-const Layout = (routes: { title: string; link: string }[]) => {
+const Layout = (props: {routes: RouteType[]}) => {
   return (
     <>
-      <Header {...routes} />
+      <Header routes={props.routes} />
       <Outlet />
     </>
   );

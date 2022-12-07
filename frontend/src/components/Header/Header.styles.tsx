@@ -1,43 +1,66 @@
+import { styled } from "@mui/system";
 import {
-    styled,
-    experimental_sx as sx
-} from '@mui/system';
-import {
+    Grid,
     Box as BoxMui,
     Stack as StackMui,
-    Typography as TypographyMui
-} from '@mui/material';
+    Typography as TypographyMui,
+    Paper as PaperMui,
+    Button as ButtonMui
+} from "@mui/material";
 
-import theme from '../../styles/theme'
+import theme from "../../styles/theme";
 
-export const Box = styled(BoxMui)(
-    sx({
-        margin: 0,
-        backgroundColor: theme.primary,
-        borderBottomLeftRadius: '1vw',
-        borderBottomRightRadius: '1vw',
-        height: '9vh'
-      }),
-);
+export const GridContainer = styled(Grid)(() => ({
+    margin: 0,
+    backgroundColor: theme.primary,
+    height: "9vh",
+}));
 
-export const Typography = styled(TypographyMui)(
-    sx({
-        color: theme.fontLight,
-    }),
-)
+export const LogoWrapper = styled(Grid)(() => ({
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+}));
 
-export const BoxTypography = styled(BoxMui)(
-    sx({
-        display: 'flex',
-        justifyContent: 'center',
-    }),
-);
+export const NavWrapper = styled(Grid)(() => ({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
+}));
 
-export const StackNav = styled(StackMui)(
-    sx({
-        direction: "row",
-        justifyContent: 'center',
-        alignItems: "center",
-        spacing: "2",
-    }),
-);
+export const LoginWrapper = styled(Grid)(() => ({
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    textAlign: 'center'
+}));
+
+export const Typography = styled(TypographyMui)(() => ({
+    color: theme.fontLight,
+}));
+
+export const BoxTypography = styled(BoxMui)(() => ({
+    paddingLeft: '2vw',
+}));
+
+export const Button = styled(ButtonMui)(() => ({
+    width: '7vw',
+    height: '5vh',
+    marginRight: '2vw',
+    backgroundColor: theme.btn,
+    color: theme.fontLight,
+    borderRadius: "30px",
+    '&:hover': {
+        background: theme.bgGrey,
+        color: theme.fontDark
+     },
+}));
+
+export const LoginTypography = styled(TypographyMui)(() => ({
+    fontSize: '1vw',
+    fontWeight: 500,
+}));
