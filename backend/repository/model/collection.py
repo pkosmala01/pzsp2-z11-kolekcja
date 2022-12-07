@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
-from sqlalchemy.orm import declarative_base
-
-Base = declarative_base()
+from repository.model.base import Base
 
 
 class CollectionTable(Base, SerializerMixin):
@@ -11,3 +10,4 @@ class CollectionTable(Base, SerializerMixin):
     collection_id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
+    users = relationship("CollectionUserTable", back_populates="collection")

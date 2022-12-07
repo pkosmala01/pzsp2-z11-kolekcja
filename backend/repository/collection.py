@@ -1,7 +1,6 @@
 from typing import Optional, List, Dict, Any
-
 from repository.database import get_session, OrmBaseModel
-from repository.model.collection import CollectionTable
+from repository.model import *
 
 
 class CollectionNotFound(Exception):
@@ -29,8 +28,8 @@ def list_collections() -> List[Collection]:
     return [Collection.from_orm(result) for result in results]
 
 
-def create_collection(collection: Dict[str, Any]):
+def create_collection(collection_object: Dict[str, Any]):
     session = get_session()
-    collection = CollectionTable(**collection)
-    session.add(collection)
+    collection_object = CollectionTable(**collection_object)
+    session.add(collection_object)
     session.commit()
