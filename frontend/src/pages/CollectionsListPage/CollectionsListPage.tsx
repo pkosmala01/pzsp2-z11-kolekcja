@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Grid, Box, Divider, ListItemText} from "@mui/material";
 import * as Styled from "./CollectionsListPage.styles";
+import CreateCollection from "../../components/CreateCollection/CreateCollection";
 
 const CollectionsListPage = () => {
   const collections = [
@@ -22,12 +23,13 @@ const CollectionsListPage = () => {
         <Styled.GridContainer container>
             <Grid item xs={3}></Grid>
             <Grid item xs={6}>
+              <CreateCollection />
                 <Styled.List>
                     {collections.map((e, i) => {
                         return (
                         <Link to={`/${e.id}`}>
-                            <Styled.Wrapper>
-                                <Styled.ListItem key={i}>
+                            <Styled.Wrapper key={i}>
+                                <Styled.ListItem>
                                     <Styled.ListItemAvatar>
                                         <Styled.img src={'./coll.svg'} />
                                     </Styled.ListItemAvatar>
