@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 
 from repository.database import get_session, OrmBaseModel
 from repository.model.collection import CollectionTable
@@ -29,8 +29,8 @@ def list_collections() -> List[Collection]:
     return [Collection.from_orm(result) for result in results]
 
 
-def create_collection(collection: Collection):
+def create_collection(collection: Dict[str, Any]):
     session = get_session()
-    collection = CollectionTable(**collection.dict())
+    collection = CollectionTable(**collection)
     session.add(collection)
     session.commit()
