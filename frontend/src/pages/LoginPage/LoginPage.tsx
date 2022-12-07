@@ -22,8 +22,8 @@ const LoginPage = () => {
       <LoginBox>
         <Title>LOGIN</Title>
         <MyFormControl>
-          <TextField id="filled-basic" label="Username" variant="filled" />
-          <TextField id="filled-basic" label="Password" variant="filled" />
+          <TextField id="filled-username" label="Username" variant="filled" />
+          <TextField id="filled-password" label="Password" variant="filled" />
         </MyFormControl>
         <Button onClick={loginHandler} variant="contained" sx={LoginButton}>
           LOGIN
