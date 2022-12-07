@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 import * as Styled from "./Header.styles";
+import { RouteType } from "../../untils/type";
 
-const Header = (routes: { title: string; link: string }[]) => {
+const Header = (props: { routes: RouteType[] }) => {
   return (
     <Styled.Box>
       <Grid container>
@@ -13,7 +14,7 @@ const Header = (routes: { title: string; link: string }[]) => {
         </Grid>
         <Grid item xs={6}>
           <Styled.StackNav>
-            {/* {routes.map((e: { title: string; link: string }, index) => {
+            {props.routes.map((e: RouteType, index) => {
               return (
                 <Styled.BoxTypography key={index}>
                   <Link to={e.link}>
@@ -23,11 +24,8 @@ const Header = (routes: { title: string; link: string }[]) => {
                   </Link>
                 </Styled.BoxTypography>
               );
-            })} */}
+            })}
           </Styled.StackNav>
-        </Grid>
-        <Grid item xs={3}>
-          b
         </Grid>
       </Grid>
     </Styled.Box>

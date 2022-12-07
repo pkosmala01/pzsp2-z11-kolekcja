@@ -1,4 +1,3 @@
-
 const CollectionsListPage = () => {
   return (
       <div>
