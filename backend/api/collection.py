@@ -5,7 +5,6 @@ from pydantic import BaseModel
 
 from repository.collection import get_collection_by_id, Collection, create_collection, list_collections
 
-
 router = APIRouter()
 
 

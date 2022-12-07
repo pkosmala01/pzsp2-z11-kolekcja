@@ -1,0 +1,7 @@
+database:
+  dialect: oracle
+  driver: cx_oracle
+  username: PZSP11
+  host: ora2.ia.pw.edu.pl
+  port: 1521
+  dbname: iais
