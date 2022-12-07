@@ -1,4 +1,4 @@
-import { FormControl } from "@mui/material";
+import { FormControl, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import sx from "@mui/system/sx";
 import theme from "../../styles/theme";
@@ -8,7 +8,7 @@ export const LoginTheme = styled(Box)(
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: theme.loginBg,
+    backgroundColor: theme.bgBlue,
     height: "100vh",
     margin: 0,
   })
@@ -52,3 +52,8 @@ export const Title = styled("h1")(
     color: theme.black,
   })
 );
+
+export const LoginTypography = styled(Typography)(() => ({
+  fontSize: '1vw',
+  fontWeight: 500,
+}));

@@ -5,13 +5,11 @@ import CollectionsListPage from "../pages/CollectionsListPage/CollectionsListPag
 import HomePage from "../pages/HomePage/HomePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 
+import '../styles/styles.css'
+
 const routes: { title: string; link: string }[] = [
   {
-    title: "home",
-    link: "/",
-  },
-  {
-    title: "collection",
+    title: "collections",
     link: "/collectionsList",
   },
 ];
@@ -21,11 +19,6 @@ const App = () => {
     <Routes>
       <Route path="login" element={<LoginPage />} />
       <Route path="/" element={<Layout routes={routes} />}>
-        <Route
-          path="frontend/dist/index.html"
-          element={<Navigate replace to="/" />}
-        />
-        <Route path="dist/index.html" element={<Navigate replace to="/" />} />
         <Route path="" element={<HomePage />} />
         <Route path="collectionsList" element={<CollectionsListPage />} />
       </Route>

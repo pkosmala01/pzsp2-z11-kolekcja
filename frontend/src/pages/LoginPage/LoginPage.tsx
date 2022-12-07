@@ -6,6 +6,7 @@ import {
   LoginBox,
   LoginButton,
   LoginTheme,
+  LoginTypography,
   MyFormControl,
   Title,
 } from "./LoginPage.styles";
@@ -19,7 +20,7 @@ const LoginPage = () => {
     console.log("login");
     console.log(username);
     console.log(password);
-    navigate("/");
+    navigate(-1);
   };
 
   const handleUsernameChange = (e: any) => {
@@ -41,7 +42,7 @@ const LoginPage = () => {
           <TextField id="filled-password" onChange={handlePasswordChange} label="Password" variant="filled" required type="password"/>
         </MyFormControl>
         <Button onClick={loginHandler} variant="contained" sx={LoginButton}>
-          LOGIN
+          <LoginTypography>LOGIN</LoginTypography>
         </Button>
       </LoginBox>
     </LoginTheme>

@@ -5,7 +5,6 @@ const theme = {
   bgBlue: '#D0E1F9',
   fontLight: '#ffffff',
   fontDark: '#000000',
-  loginBg: '#D0E1F9',
   white: '#ffffff',
   black: '#000000',
 }
