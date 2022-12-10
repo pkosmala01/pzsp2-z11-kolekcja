@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, LargeBinary, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
+
 from repository.model.base import Base
 
 
@@ -14,5 +15,3 @@ class ItemTable(Base, SerializerMixin):
     image = Column(LargeBinary)
     properties = relationship('PropertyValueTable', back_populates="item")
     collection = relationship("CollectionTable", back_populates="items")
-
-
