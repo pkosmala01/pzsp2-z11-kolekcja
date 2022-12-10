@@ -8,6 +8,7 @@ class CollectionTable(Base, SerializerMixin):
     __tablename__ = "collections"
 
     collection_id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, nullable=False)
     description = Column(String)
     users = relationship("CollectionUserTable", back_populates="collection")
+    items = relationship("ItemsTable", back_populates="collection")

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api import collection
-
+import os
 app = FastAPI()
 
 origins = [
@@ -26,4 +26,7 @@ for router in routers:
 
 @app.get("/", tags=['test'])
 async def root():
+    db_password = os.getenv('DB_PASSWORD')
+    if db_password is None:
+        return {"error": "DB_PASSWORD env variable not set"}
     return {"message": "Hello World"}

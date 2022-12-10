@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
+
 from repository.model.base import Base
 
 
