@@ -6,9 +6,10 @@ from repository.model.base import Base
 
 class CollectionTable(Base, SerializerMixin):
     __tablename__ = "collections"
+    serialize_rules = ('-users.collection', '-items.collection')
 
     collection_id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     description = Column(String)
     users = relationship("CollectionUserTable", back_populates="collection")
-    items = relationship("ItemTable", back_populates="collection")
+    items = relationship("ItemTable")

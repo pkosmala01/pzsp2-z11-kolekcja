@@ -7,6 +7,7 @@ from repository.model.base import Base
 
 class PropertyDefinitionTable(Base, SerializerMixin):
     __tablename__ = "property_definitions"
+    serialize_rules = ('-property_value.property_definition',)
 
     property_id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)

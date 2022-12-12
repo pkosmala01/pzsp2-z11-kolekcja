@@ -7,11 +7,11 @@ from repository.model.base import Base
 
 class ItemTable(Base, SerializerMixin):
     __tablename__ = "items"
+    serialize_rules = ('-properties.item', '-properties.item_id', '-properties.property_id')
 
     item_id = Column(Integer, primary_key=True)
     collection_id = Column(Integer, ForeignKey('collections.collection_id'))
     name = Column(String, nullable=False)
     description = Column(String)
     photo = Column(LargeBinary)
-    properties = relationship('PropertyValueTable', back_populates="item")
-    collection = relationship("CollectionTable", back_populates="items")
+    properties = relationship('PropertyValueTable')

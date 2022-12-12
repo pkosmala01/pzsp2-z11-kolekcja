@@ -10,6 +10,7 @@ class Item(OrmBaseModel):
     name: str
     description: Optional[str]
     photo: Optional[bytes]
+    properties: List
 
 
 def get_item_by_id(item_id: int) -> Item:
@@ -18,7 +19,7 @@ def get_item_by_id(item_id: int) -> Item:
         ItemTable.item_id == item_id
     )
     result = query.one()
-    return Item.from_orm(result)
+    return result.to_dict()
 
 
 def get_items_for_collection_id(collection_id: int) -> List[Item]:
