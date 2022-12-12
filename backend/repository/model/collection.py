@@ -11,4 +11,4 @@ class CollectionTable(Base, SerializerMixin):
     name = Column(String, nullable=False)
     description = Column(String)
     users = relationship("CollectionUserTable", back_populates="collection")
-    items = relationship("ItemsTable", back_populates="collection")
+    items = relationship("ItemTable", back_populates="collection")

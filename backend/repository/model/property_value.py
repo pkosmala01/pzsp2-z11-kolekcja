@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
+
 from repository.model.base import Base
 
 
@@ -11,4 +12,4 @@ class PropertyValueTable(Base, SerializerMixin):
     property_id = Column(Integer, ForeignKey('property_definitions.property_id'), primary_key=True)
     value = Column(String)
     property_definition = relationship("PropertyDefinitionTable", back_populates="property_value")
-    item = relationship("ItemsTable", back_populates="properties")
+    item = relationship("ItemTable", back_populates="properties")

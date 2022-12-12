@@ -12,6 +12,6 @@ class ItemTable(Base, SerializerMixin):
     collection_id = Column(Integer, ForeignKey('collections.collection_id'))
     name = Column(String, nullable=False)
     description = Column(String)
-    image = Column(LargeBinary)
+    photo = Column(LargeBinary)
     properties = relationship('PropertyValueTable', back_populates="item")
     collection = relationship("CollectionTable", back_populates="items")

@@ -1,7 +1,8 @@
-from fastapi import HTTPException, APIRouter
-from sqlalchemy.orm.exc import NoResultFound
 from typing import List, Optional
+
+from fastapi import HTTPException, APIRouter
 from pydantic import BaseModel
+from sqlalchemy.orm.exc import NoResultFound
 
 from repository.collection import get_collection_by_id, Collection, create_collection, list_collections
 
