@@ -9,7 +9,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-oracledb.version = "8.3.0"
+with open("config.yaml") as config_file:
+    config = yaml.safe_load(config_file)['database']
+    oracledb.version = config['cx_oracle_version']
 sys.modules["cx_Oracle"] = oracledb
 
 
