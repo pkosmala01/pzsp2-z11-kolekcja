@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm.exc import NoResultFound
 
 from repository.collection import get_collection_by_id, Collection, create_collection, list_collections
+from repository.item import Item, get_items_for_collection_id
 
 router = APIRouter()
 
@@ -43,5 +44,17 @@ async def list_all_collections() -> List[Collection]:
     tags=['collections'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def new_collection(collection: CreateCollectionRequest) -> None:
+async def post_collection(collection: CreateCollectionRequest) -> None:
     create_collection(collection.dict())
+
+
+@router.get(
+    "/collections/{collection_id}/items",
+    tags=['collections'],
+    responses={404: {'detail': 'Collection not found'}}
+)
+async def get_collection_items(collection_id: int) -> [Item]:
+    try:
+        return get_items_for_collection_id(collection_id=collection_id)
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='Collection not found') from None

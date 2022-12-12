@@ -29,8 +29,9 @@ def list_collections() -> List[Collection]:
     return [Collection.from_orm(result) for result in results]
 
 
-def create_collection(collection_object: Dict[str, Any]):
+def create_collection(collection_dict: Dict[str, Any]):
     session = get_session()
-    collection_object = CollectionTable(**collection_object)
+    collection_object = CollectionTable(**collection_dict)
     session.add(collection_object)
     session.commit()
+

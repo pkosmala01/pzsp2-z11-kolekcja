@@ -1,7 +1,10 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api import collection
-import os
+
+from api import collection, item
+
 app = FastAPI()
 
 origins = [
@@ -18,6 +21,7 @@ app.add_middleware(
 
 routers = [
     collection.router,
+    item.router,
 ]
 
 for router in routers:

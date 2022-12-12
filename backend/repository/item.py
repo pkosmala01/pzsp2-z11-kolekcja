@@ -9,7 +9,7 @@ class Item(OrmBaseModel):
     collection_id: int
     name: str
     description: Optional[str]
-    image: Optional[bytes]
+    photo: Optional[bytes]
 
 
 def get_item_by_id(item_id: int) -> Item:
@@ -21,14 +21,28 @@ def get_item_by_id(item_id: int) -> Item:
     return Item.from_orm(result)
 
 
-def list_items() -> List[Item]:
+def get_items_for_collection_id(collection_id: int) -> List[Item]:
     session = get_session()
-    results = session.query(ItemTable).all()
+    results = session.query(ItemTable).filter(
+        ItemTable.collection_id == collection_id
+    ).all()
     return [Item.from_orm(result) for result in results]
 
 
-def create_item(item_object: Dict[str, Any]):
+def create_item(item_dict: Dict[str, Any]):
     session = get_session()
-    item_object = ItemTable(**item_object)
+    item_object = ItemTable(**item_dict)
     session.add(item_object)
     session.commit()
+
+
+def delete_item(item_id):
+    session = get_session()
+    session.query(ItemTable).filter(
+        ItemTable.item_id == item_id
+    ).delete()
+    session.commit()
+
+
+def edit_item(item_dict: Dict[str, Any]):
+    raise NotImplementedError
