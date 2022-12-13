@@ -4,7 +4,7 @@ from fastapi import HTTPException, APIRouter
 from pydantic import BaseModel
 from sqlalchemy.exc import NoResultFound
 
-from repository.item import Item, get_item_by_id, create_item
+from repository.item import Item, ItemRepository
 
 router = APIRouter()
 
@@ -23,7 +23,7 @@ class CreateItemRequest(BaseModel):
 )
 async def get_item(item_id: int) -> Item:
     try:
-        return get_item_by_id(item_id=item_id)
+        return ItemRepository.get_item_by_id(item_id=item_id)
     except NoResultFound:
         raise HTTPException(status_code=404, detail='Item not found') from None
 
@@ -33,5 +33,5 @@ async def get_item(item_id: int) -> Item:
     tags=['items'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def post_item(collection: CreateItemRequest) -> None:
-    create_item(collection.dict())
+async def create_item(collection: CreateItemRequest) -> None:
+    ItemRepository.create_item(collection.dict())

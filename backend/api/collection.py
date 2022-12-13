@@ -4,8 +4,8 @@ from fastapi import HTTPException, APIRouter
 from pydantic import BaseModel
 from sqlalchemy.orm.exc import NoResultFound
 
-from repository.collection import get_collection_by_id, Collection, create_collection, list_collections
-from repository.item import Item, get_items_for_collection_id
+from repository.collection import Collection, CollectionRepository
+from repository.item import Item, ItemRepository
 
 router = APIRouter()
 
@@ -22,7 +22,7 @@ class CreateCollectionRequest(BaseModel):
 )
 async def get_collection(collection_id: int) -> Collection:
     try:
-        return get_collection_by_id(collection_id=collection_id)
+        return CollectionRepository.get_collection_by_id(collection_id=collection_id)
     except NoResultFound:
         raise HTTPException(status_code=404, detail='Collection not found') from None
 
@@ -32,9 +32,9 @@ async def get_collection(collection_id: int) -> Collection:
     tags=['collections'],
     responses={404: {'detail': 'No collections'}}
 )
-async def list_all_collections() -> List[Collection]:
+async def list_collections() -> List[Collection]:
     try:
-        return list_collections()
+        return CollectionRepository.list_collections()
     except NoResultFound:
         raise HTTPException(status_code=404, detail='No collections') from None
 
@@ -44,8 +44,8 @@ async def list_all_collections() -> List[Collection]:
     tags=['collections'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def post_collection(collection: CreateCollectionRequest) -> None:
-    create_collection(collection.dict())
+async def create_collection(collection: CreateCollectionRequest) -> None:
+    CollectionRepository.create_collection(collection.dict())
 
 
 @router.get(
@@ -53,8 +53,8 @@ async def post_collection(collection: CreateCollectionRequest) -> None:
     tags=['collections'],
     responses={404: {'detail': 'Collection not found'}}
 )
-async def get_collection_items(collection_id: int) -> [Item]:
+async def get_collection_items(collection_id: int) -> List[Item]:
     try:
-        return get_items_for_collection_id(collection_id=collection_id)
+        return ItemRepository.get_items_for_collection_id(collection_id=collection_id)
     except NoResultFound:
         raise HTTPException(status_code=404, detail='Collection not found') from None
