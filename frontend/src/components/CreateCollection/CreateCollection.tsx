@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import usePostData from "../../hook/usePostData";
-import { ENDPOINT } from "../../untils/endpoint";
+import { ENDPOINT, URL } from "../../untils/endpoint";
 import {
   CollectionWrapper,
   CreateBannerTypography,
@@ -13,9 +13,8 @@ const CreateCollection = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
-  const url = 'http://localhost:8080/';
 
-  const { data, isLoading, error, mutate } = usePostData(url + ENDPOINT.createCollection)
+  const { data, isLoading, error, mutate } = usePostData(URL + ENDPOINT.createCollection)
 
   const handleNameChange = (e: any) => {
     setName(e.target.value);
