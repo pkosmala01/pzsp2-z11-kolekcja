@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Grid } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -34,17 +34,21 @@ const LoginPage = () => {
   };
 
   return (
-    <LoginTheme>
-      <LoginBox>
-        <Title>LOGIN</Title>
-        <MyFormControl>
-          <TextField id="filled-username" onChange={handleUsernameChange} label="Username" variant="filled" required/>
-          <TextField id="filled-password" onChange={handlePasswordChange} label="Password" variant="filled" required type="password"/>
-        </MyFormControl>
-        <Button onClick={loginHandler} variant="contained" sx={LoginButton}>
-          <LoginTypography>LOGIN</LoginTypography>
-        </Button>
-      </LoginBox>
+    <LoginTheme container>
+      <Grid item xs={2} sm={3} ></Grid>
+      <Grid item xs={8} sm={6} >
+        <LoginBox>
+          <Title>LOGIN</Title>
+          <MyFormControl>
+            <TextField id="filled-username" onChange={handleUsernameChange} label="Username" variant="filled" required/>
+            <TextField id="filled-password" onChange={handlePasswordChange} label="Password" variant="filled" required type="password"/>
+          </MyFormControl>
+          <LoginButton onClick={loginHandler} variant="contained">
+            <LoginTypography>LOGIN</LoginTypography>
+          </LoginButton>
+        </LoginBox>
+      </Grid>
+      <Grid item xs={2} sm={3}></Grid>
     </LoginTheme>
   );
 };

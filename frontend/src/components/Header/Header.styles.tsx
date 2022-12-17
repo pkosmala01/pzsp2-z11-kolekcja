@@ -1,10 +1,9 @@
 import { styled } from "@mui/system";
+import sx from "@mui/system/sx";
 import {
     Grid,
     Box as BoxMui,
-    Stack as StackMui,
     Typography as TypographyMui,
-    Paper as PaperMui,
     Button as ButtonMui
 } from "@mui/material";
 
@@ -56,11 +55,11 @@ export const Button = styled(ButtonMui)(() => ({
     borderRadius: "30px",
     '&:hover': {
         background: theme.bgGrey,
-        color: theme.fontDark
+        color: theme.fontDark,
      },
 }));
 
-export const LoginTypography = styled(TypographyMui)(() => ({
-    fontSize: '1vw',
+export const LoginTypography = styled(TypographyMui)(sx({
+    fontSize: { xs: '1.5vh', sm: "1vw" },
     fontWeight: 500,
 }));
