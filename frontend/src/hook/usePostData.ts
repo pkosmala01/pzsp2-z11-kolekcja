@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
-const usePostData = <T>(url: string) => {
+const usePostData = <T>(url: string, success: CallableFunction) => {
   const queryClient = useQueryClient();
   const { data, isLoading, isError, error, mutate } = useMutation(
     async (data: T) => {
@@ -14,6 +14,7 @@ const usePostData = <T>(url: string) => {
     },
     {
       onSuccess: (_data: T) => {
+        success();
       },
     },
   );

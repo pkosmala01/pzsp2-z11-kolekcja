@@ -1,5 +1,7 @@
-import { FormControl, CircularProgress as CircularProgressMui } from "@mui/material";
-import { Box, styled } from "@mui/system";
+import { Box, Button, FormControl,
+  CircularProgress as CircularProgressMui,
+} from "@mui/material";
+import { styled } from "@mui/system";
 import sx from "@mui/system/sx";
 import theme from "../../styles/theme";
 
@@ -35,10 +37,17 @@ export const CreateBannerTypography = styled(Box)(
   })
 );
 
-export const SubmitButton = {
+export const SubmitButton = styled(Button)(sx({
   marginTop: "1.25rem",
-  innerWidth: "10vw",
-};
+  backgroundColor: theme.primary,
+  height: "5vh",
+  width: { xs: "25vw", sm: "6vw"},
+  borderRadius: "30px",
+  color: theme.white,
+  '&:hover': {
+    background: theme.btn,
+ },
+}));
 
 export const BgBlur = styled(Box)(sx({
   width: "inherit",
@@ -58,3 +67,46 @@ export const blur = sx({
 export const CircularProgress = styled(CircularProgressMui)(sx({
   color: theme.primary,
 }));
+
+export const CreateBtnWrapper = styled(Box)(sx({
+  display: { xs: "none", sm: "flex" },
+  flexDirection: "column-reverse",
+  alignItems: "flex-end",
+  justifyContent: "right",
+  marginTop: { xs: "0.5rem", sm: "2rem" },
+  marginRight: { xs: "0.5rem", sm: "1.5rem" },
+}))
+
+export const CreateCollectionBtn = styled(Button)(sx({
+  display: "flex",
+  backgroundColor: theme.primary,
+  padding: "1rem",
+  borderRadius: "30px",
+  color: theme.white,
+  '&:hover': {
+      background: theme.btn,
+      // background: theme.bgGrey,
+      // border: `3px ${theme.primary} solid`,
+      // fontWeight: 700,
+      // color: theme.primary,
+   },
+}));
+
+export const CreateCollectionFab = styled(Box)(sx({
+  display: { xs: "flex", sm: "none" },
+  backgroundColor: theme.primary,
+  padding: "1rem",
+  borderRadius: "30px",
+  color: theme.white,
+  '&:hover': {
+      background: theme.btn,
+      // background: theme.bgGrey,
+      // border: `3px ${theme.primary} solid`,
+      // fontWeight: 700,
+      // color: theme.primary,
+  },
+  position: "absolute",
+  right: "15vw",
+  bottom: "7vh",
+  zIndex: 999,
+}))

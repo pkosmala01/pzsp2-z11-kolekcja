@@ -7,10 +7,10 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 const CollectionsListPage = () => {
-  const { data, isLoading } = useQuery('collection', async () => {
-    const responce = await axios.get(URL + ENDPOINT.collectionsList);
-    return responce.data;
-  })
+    const { data, isLoading } = useQuery('collection', async () => {
+        const responce = await axios.get(URL + ENDPOINT.collectionsList);
+        return responce.data;
+    })
 
     return (
         <Styled.GridContainer container>

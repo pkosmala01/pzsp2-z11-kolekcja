@@ -71,6 +71,7 @@ export const TypographyDesc = styled(Typography)(sx({
 
 
 export const SpinnerBox = styled(Box)(sx({
+    minHeight: "50vh",
     height: "100%",
     display: "flex",
     alignItems: "center",
