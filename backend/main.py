@@ -1,11 +1,15 @@
 import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordBearer
 
-from api import collection, item
+from api import collection, item, token
+from api.token import decode_access_token
 
 app = FastAPI()
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 origins = [
     "http://localhost:3000",
@@ -22,6 +26,7 @@ app.add_middleware(
 routers = [
     collection.router,
     item.router,
+    token.router,
 ]
 
 for router in routers:
@@ -29,8 +34,8 @@ for router in routers:
 
 
 @app.get("/", tags=['test'])
-async def root():
+async def root(token: str = Depends(oauth2_scheme)):
     db_password = os.getenv('DB_PASSWORD')
     if db_password is None:
         return {"error": "DB_PASSWORD env variable not set"}
-    return {"message": "Hello World"}
+    return {"message": "Hello World", "email": decode_access_token(token=token)}

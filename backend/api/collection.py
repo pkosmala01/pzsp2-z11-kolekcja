@@ -1,6 +1,7 @@
 from typing import List, Optional
 
-from fastapi import HTTPException, APIRouter
+from fastapi import HTTPException, APIRouter, Depends
+from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -8,6 +9,7 @@ from repository.collection import Collection, CollectionRepository
 from repository.item import Item, ItemRepository
 
 router = APIRouter()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 class CreateCollectionRequest(BaseModel):
@@ -20,7 +22,7 @@ class CreateCollectionRequest(BaseModel):
     tags=['collections'],
     responses={404: {'detail': 'Collection not found'}}
 )
-async def get_collection(collection_id: int) -> Collection:
+async def get_collection(collection_id: int, token: str = Depends(oauth2_scheme)) -> Collection:
     try:
         return CollectionRepository.get_collection_by_id(collection_id=collection_id)
     except NoResultFound:
@@ -32,7 +34,7 @@ async def get_collection(collection_id: int) -> Collection:
     tags=['collections'],
     responses={404: {'detail': 'No collections'}}
 )
-async def list_collections() -> List[Collection]:
+async def list_collections(token: str = Depends(oauth2_scheme)) -> List[Collection]:
     try:
         return CollectionRepository.list_collections()
     except NoResultFound:
@@ -44,7 +46,7 @@ async def list_collections() -> List[Collection]:
     tags=['collections'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def create_collection(collection: CreateCollectionRequest) -> None:
+async def create_collection(collection: CreateCollectionRequest, token: str = Depends(oauth2_scheme)) -> None:
     CollectionRepository.create_collection(collection.dict())
 
 
@@ -53,7 +55,7 @@ async def create_collection(collection: CreateCollectionRequest) -> None:
     tags=['collections'],
     responses={404: {'detail': 'Collection not found'}}
 )
-async def get_collection_items(collection_id: int) -> List[Item]:
+async def get_collection_items(collection_id: int, token: str = Depends(oauth2_scheme)) -> List[Item]:
     try:
         return ItemRepository.get_items_for_collection_id(collection_id=collection_id)
     except NoResultFound:
