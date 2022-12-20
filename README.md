@@ -35,10 +35,18 @@ lokalizację.
  https://www.figma.com/file/wJOZkqIDr6yHwVIh8raVUp/Untitled?node-id=0%3A1
 
 ## Struktura repozytorium
+* /architektura
+    * pliki konieczne do konsultacji z dr. inż. Andrzejem Ratkowskim
 * /backend
     * zawiera kod części backendowej systemu - api
+* /bezpieczenstwo
+    * pliki konieczne do konsultacji z dr. inż. Tomaszem Krukiem
 * /frontend
     * zawiera kod części frontendowej systemu - aplikacja webowa
+* /minutki
+    * krótkie notatki ze spotkań zespołu
+* /prezentacja_srodsem
+    * pliki wykorzystywane przez zespół podczas prezentacji śródsemestralnej
 * /projekt_bazy_danych
     * pliki przedstawione do konsultacji z ekspertem - dr. inż. Tomaszem Traczykiem
 * /user_experience
@@ -46,5 +54,3 @@ lokalizację.
 * /wymagania
     * krótki opis funkcjonalności naszej aplikacji
     * prosty diagram architektury systemu
-* /minutki
-    * krótkie notatki ze spotkań zespołu
