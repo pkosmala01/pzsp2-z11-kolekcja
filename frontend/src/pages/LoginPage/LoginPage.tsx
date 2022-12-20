@@ -42,7 +42,7 @@ const LoginPage = () => {
     retry: 1,
     onSuccess: (data) => {
       localStorage.setItem('accessToken', data['access_token']);
-      navigate(-1);
+      navigate("/");
     },
 
   });

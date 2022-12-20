@@ -30,7 +30,7 @@ const CollectionsListPage = () => {
                     <Styled.List>
                         {data.map((e: any, i: any) => {
                             return (
-                                <Link to={`/${e.id}`} key={i}>
+                                <Link to={`/collection/${e.collection_id}`} key={i}>
                                     <Styled.ListItem>
                                         <Styled.ListItemAvatar>
                                             <Styled.img src={'./coll.svg'} />

@@ -5,7 +5,8 @@ import CollectionsListPage from "../pages/CollectionsListPage/CollectionsListPag
 import LoginPage from "../pages/LoginPage/LoginPage";
 
 import isLogged from "../untils/isLogged";
-import '../styles/styles.css'
+import "../styles/styles.css";
+import CollectionItems from "../components/CollectionItems/CollectionItems";
 
 const routes: { title: string; link: string }[] = [
   {
@@ -14,9 +15,11 @@ const routes: { title: string; link: string }[] = [
   },
 ];
 
-const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
+const RequireAuth: React.FC<{ children: React.ReactElement }> = ({
+  children,
+}) => {
   if (!isLogged) {
-     return <LoginPage />;
+    return <LoginPage />;
   }
   return children;
 };
@@ -25,10 +28,36 @@ const App = () => {
   return (
     <Routes>
       <Route path="login" element={<LoginPage />} />
-      <Route path="/" element={<Layout routes={routes} />}>
-        <Route path="" element={<RequireAuth><CollectionsListPage/></RequireAuth>} />
+      <Route
+        path="/collection"
+        element={<Layout routes={routes} />}>
+        <Route
+          path="/collection/:collectionId"
+          element={
+            <RequireAuth>
+              <CollectionItems />
+            </RequireAuth>
+          }
+        />
       </Route>
-      <Route path="*" element={<RequireAuth><CollectionsListPage/></RequireAuth>} />
+      <Route path="/" element={<Layout routes={routes} />}>
+        <Route
+          path=""
+          element={
+            <RequireAuth>
+              <CollectionsListPage />
+            </RequireAuth>
+          }
+        />
+      </Route>
+      <Route
+        path="*"
+        element={
+          <RequireAuth>
+            <CollectionsListPage />
+          </RequireAuth>
+        }
+      />
     </Routes>
   );
 };
