@@ -6,9 +6,9 @@ const usePostData = <T>(url: string, success: CallableFunction) => {
   const { data, isLoading, isError, error, mutate } = useMutation(
     async (data: T) => {
       const resp = await axios.post(url, data, {
-        // headers: {
-        //   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
       });
       return resp.data;
     },

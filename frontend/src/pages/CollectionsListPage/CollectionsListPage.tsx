@@ -8,7 +8,11 @@ import { useQuery } from "react-query";
 
 const CollectionsListPage = () => {
     const { data, isLoading } = useQuery('collection', async () => {
-        const responce = await axios.get(URL + ENDPOINT.collectionsList);
+        const responce = await axios.get(URL + ENDPOINT.collectionsList, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+        });
         return responce.data;
     })
 

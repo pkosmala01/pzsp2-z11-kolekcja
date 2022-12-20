@@ -2,9 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import CollectionsListPage from "../pages/CollectionsListPage/CollectionsListPage";
-import HomePage from "../pages/HomePage/HomePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 
+import isLogged from "../untils/isLogged";
 import '../styles/styles.css'
 
 const routes: { title: string; link: string }[] = [
@@ -14,15 +14,21 @@ const routes: { title: string; link: string }[] = [
   },
 ];
 
+const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
+  if (!isLogged) {
+     return <LoginPage />;
+  }
+  return children;
+};
+
 const App = () => {
   return (
     <Routes>
       <Route path="login" element={<LoginPage />} />
       <Route path="/" element={<Layout routes={routes} />}>
-        <Route path="" element={<HomePage />} />
-        <Route path="collectionsList" element={<CollectionsListPage />} />
+        <Route path="" element={<RequireAuth><CollectionsListPage/></RequireAuth>} />
       </Route>
-      <Route path="*" element={<Navigate replace to="/" />} />
+      <Route path="*" element={<RequireAuth><CollectionsListPage/></RequireAuth>} />
     </Routes>
   );
 };

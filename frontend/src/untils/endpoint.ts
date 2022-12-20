@@ -1,5 +1,5 @@
 export const ENDPOINT = {
-  login: 'login',
+  login: 'token',
   register: 'register',
   createCollection: 'collections',
   collectionsList: 'collections',
