@@ -21,7 +21,7 @@ const CreateCollection = () => {
   const [description, setDescription] = useState("");
 
 
-  const { data, isLoading, error, mutate } = usePostData(URL + ENDPOINT.createCollection, () => {
+  const { data, isLoading, isError, error, mutate } = usePostData(URL + ENDPOINT.createCollection, () => {
     if(window.innerWidth < 760){
       document.getElementById("create-collection-fab")?.style.setProperty("display", "flex");
     }
@@ -82,6 +82,7 @@ const CreateCollection = () => {
               label="Name"
               variant="standard"
               required
+              disabled={isLoading}
             />
           </MyFormControl>
           <MyFormControl>
@@ -90,9 +91,10 @@ const CreateCollection = () => {
               onChange={handleDescriptionChange}
               label="Description"
               variant="standard"
+              disabled={isLoading}
             />
           </MyFormControl>
-          <SubmitButton onClick={createHandler} variant="contained">
+          <SubmitButton onClick={createHandler} disabled={isLoading} variant="contained">
             {/* <ButtonTypography>Create</ButtonTypography> */}
             Create
           </SubmitButton>

@@ -61,7 +61,7 @@ export const BgBlur = styled(Box)(sx({
 }));
 
 export const blur = sx({
-  filter: "blur(2px)"
+  filter: "blur(1px)"
 })
 
 export const CircularProgress = styled(CircularProgressMui)(sx({
@@ -105,7 +105,7 @@ export const CreateCollectionFab = styled(Box)(sx({
       // fontWeight: 700,
       // color: theme.primary,
   },
-  position: "absolute",
+  position: "fixed",
   right: "15vw",
   bottom: "7vh",
   zIndex: 999,

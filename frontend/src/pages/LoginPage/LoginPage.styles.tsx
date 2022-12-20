@@ -1,4 +1,6 @@
-import { FormControl, Grid, Typography, Box, Button } from "@mui/material";
+import { FormControl, Grid, Typography, Box, Button,
+  CircularProgress as CircularProgressMui
+} from "@mui/material";
 import { styled } from "@mui/system";
 import sx from "@mui/system/sx";
 import theme from "../../styles/theme";
@@ -57,4 +59,23 @@ export const Title = styled("h1")(
 export const LoginTypography = styled(Typography)(sx({
   fontSize: { xs: '1.5vh', sm: "1vw" },
   fontWeight: 500,
+}));
+
+export const BgBlur = styled(Box)(sx({
+  width: "inherit",
+  height: "inherit",
+  position: "absolute",
+  zIndex: 999,
+  top: "50%",
+  left: "50%",
+  marginLeft: "-20px",
+  marginTop: "-20px",
+}));
+
+export const blur = sx({
+  filter: "blur(1px)"
+})
+
+export const CircularProgress = styled(CircularProgressMui)(sx({
+  color: theme.primary,
 }));

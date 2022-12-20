@@ -12,6 +12,9 @@ import {
   LoginTypography,
   MyFormControl,
   Title,
+  BgBlur,
+  CircularProgress,
+  blur,
 } from "./LoginPage.styles";
 
 const LoginPage = () => {
@@ -20,27 +23,20 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const loginHandler = async () => {
-    try{
-
-      const responce = await axios.post(URL + ENDPOINT.login, new URLSearchParams({username, password}),
-      {
-        headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Access-Control-Allow-Origin': '*'
-        },
-        withCredentials: true
-      });
-      return responce.data;
-    }
-    catch (err){
-      console.log("asd");
-      document.getElementById("login-failed")?.style.setProperty("display", "flex");
-    }
+    const responce = await axios.post(URL + ENDPOINT.login, new URLSearchParams({username, password}),
+    {
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true
+    });
+    return responce.data;
 
   }
 
-  const {refetch} = useQuery("", loginHandler,{
+  const {isFetching, isLoading, isError, refetch} = useQuery("", loginHandler,{
     refetchOnWindowFocus: false,
     enabled: false,
     retry: 1,
@@ -53,6 +49,8 @@ const LoginPage = () => {
 
   const onClickHandler = () => {
     refetch();
+    console.log(isFetching);
+
   };
 
   const handleUsernameChange = (e: any) => {
@@ -67,14 +65,20 @@ const LoginPage = () => {
     <LoginTheme container>
       <Grid item xs={2} sm={3} ></Grid>
       <Grid item xs={8} sm={6} >
-        <LoginBox>
-          <Alert id='login-failed' severity="error" style={{"display": "none"}} ><LoginTypography>Login Failed</LoginTypography></Alert>
+        {
+        (isFetching || isLoading)  &&
+          <BgBlur>
+            <CircularProgress></CircularProgress>
+          </BgBlur>
+        }
+        <LoginBox sx={(isFetching || isLoading) ? blur : {}}>
+          <Alert id='login-failed' severity="error" style={ isError ? {"display": "flex"} : {"display": "none"}} ><LoginTypography>Login Failed</LoginTypography></Alert>
           <Title>LOGIN</Title>
           <MyFormControl>
-            <TextField id="filled-username" onChange={handleUsernameChange} label="Email" variant="filled" required/>
-            <TextField id="filled-password" onChange={handlePasswordChange} label="Password" variant="filled" required type="password"/>
+            <TextField id="filled-username" onChange={handleUsernameChange} label="Email" variant="filled" required disabled={isFetching || isLoading}/>
+            <TextField id="filled-password" onChange={handlePasswordChange} label="Password" variant="filled" required type="password" disabled={isFetching || isLoading}/>
           </MyFormControl>
-          <LoginButton onClick={onClickHandler} variant="contained">
+          <LoginButton onClick={onClickHandler} variant="contained" disabled={isFetching || isLoading}>
             <LoginTypography>LOGIN</LoginTypography>
           </LoginButton>
         </LoginBox>
