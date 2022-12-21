@@ -8,5 +8,8 @@ export const ButtonSx = sx({
     height: "3rem",
     width: "100%",
     borderRadius: "2rem",
-    backgroundColor: theme.button,
+    backgroundColor: theme.btn,
+    '&:hover': {
+        background: theme.primary,
+     },
 });

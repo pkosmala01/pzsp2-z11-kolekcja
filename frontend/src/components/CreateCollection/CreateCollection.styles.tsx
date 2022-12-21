@@ -39,13 +39,13 @@ export const CreateBannerTypography = styled(Box)(
 
 export const SubmitButton = styled(Button)(sx({
   marginTop: "1.25rem",
-  backgroundColor: theme.primary,
+  backgroundColor: theme.btn,
   height: "5vh",
   width: { xs: "25vw", sm: "6vw"},
   borderRadius: "30px",
   color: theme.white,
   '&:hover': {
-    background: theme.btn,
+    background: theme.primary,
  },
 }));
 
@@ -79,12 +79,12 @@ export const CreateBtnWrapper = styled(Box)(sx({
 
 export const CreateCollectionBtn = styled(Button)(sx({
   display: "flex",
-  backgroundColor: theme.primary,
+  backgroundColor: theme.btn,
   padding: "1rem",
   borderRadius: "30px",
   color: theme.white,
   '&:hover': {
-      background: theme.btn,
+      background: theme.primary,
       // background: theme.bgGrey,
       // border: `3px ${theme.primary} solid`,
       // fontWeight: 700,

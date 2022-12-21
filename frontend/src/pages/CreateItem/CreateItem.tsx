@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ButtonSx } from "../../components/CollectionItems/CollectionItems.styles";
 import TitleBar from "../../components/TitleBar/TitleBar";
 import usePostData from "../../hook/usePostData";
+import theme from "../../styles/theme";
 import { URL } from "../../untils/endpoint";
 
 const CreateItem = () => {
@@ -129,7 +130,10 @@ const CreateItem = () => {
         />
       </Grid>
       <Grid item xs={10} md={8} margin={"1rem"}>
-        <Button variant="contained" component="label">
+        <Button sx={{    backgroundColor: theme.btn,
+    '&:hover': {
+        background: theme.primary,
+     },}} variant="contained" component="label" >
           Upload
           <input hidden accept="image/*" multiple type="file" />
         </Button>
