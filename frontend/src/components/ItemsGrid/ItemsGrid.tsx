@@ -33,12 +33,12 @@ const ItemsGrid = (props: { param: string | undefined }) => {
 
   return (
     <Grid container justifyContent={"center"} paddingBottom={"5rem"}>
-      <Grid item xs={5} md={3}></Grid>
-      <Grid container item xs={5} md={8} spacing={2}>
+      <Grid item xs={2} md={3}></Grid>
+      <Grid container item xs={8} md={8} spacing={2}>
         {items &&
           items.map((e: any, i:any) => {
             return (
-              <Grid item xs={5} md={3} key={i}>
+              <Grid item xs={12} md={3} key={i}>
                 <Link
                   to={`/collection/${props.param}/items/${e.item_id}`}
                   key={e.item_id}>
@@ -70,7 +70,7 @@ const ItemsGrid = (props: { param: string | undefined }) => {
             );
           })}
       </Grid>
-      <Grid item xs={5} md={1}></Grid>
+      <Grid item xs={2} md={1}></Grid>
     </Grid>
   );
 };
