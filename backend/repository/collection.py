@@ -26,7 +26,7 @@ class CollectionRepository:
         return result.to_dict(rules=serialize_rules)
 
     @staticmethod
-    def get_collections_for_user(user_id: int) -> list[Collection]:
+    def list_collections_for_user(user_id: int) -> list[Collection]:
         serialize_rules = ('-users', '-items',)
         session = get_session()
         query = session.query(CollectionTable).join(CollectionUserTable).filter(CollectionUserTable.user_id == user_id)
@@ -44,4 +44,12 @@ class CollectionRepository:
         session = get_session()
         collection_object = CollectionTable(**collection_dict)
         session.add(collection_object)
+        session.commit()
+
+    @staticmethod
+    def delete_collection(collection_id: int):
+        session = get_session()
+        session.query(CollectionTable).filter(
+            CollectionTable.collection_id == collection_id
+        ).delete()
         session.commit()
