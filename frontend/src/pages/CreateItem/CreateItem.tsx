@@ -37,6 +37,7 @@ const CreateItem = () => {
       price,
       category,
       collection_id: collectionId,
+      properties: {},
     });
   };
 
