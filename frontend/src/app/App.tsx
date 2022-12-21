@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import CollectionsListPage from "../pages/CollectionsListPage/CollectionsListPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
+import ItemPage from "../pages/ItemPage/ItemPage";
 
 import isLogged from "../untils/isLogged";
 import "../styles/styles.css";
@@ -31,6 +32,7 @@ const App = () => {
       <Route path="/" element={<Layout routes={routes} />}>
         <Route path="" element={ <RequireAuth><CollectionsListPage /></RequireAuth>}/>
         <Route path="collection/:collectionId" element={<RequireAuth><CollectionItems /></RequireAuth>}/>
+        <Route path="collection/:collectionId/items/:itemId" element={<RequireAuth><ItemPage /></RequireAuth>}/>
       </Route>
       <Route path="*" element={<RequireAuth><CollectionsListPage /></RequireAuth>}/>
       <Route path="" element={<RequireAuth><CollectionsListPage /></RequireAuth>}/>

@@ -3,6 +3,7 @@ export const ENDPOINT = {
   register: 'register',
   createCollection: 'collections',
   collectionsList: 'collections',
+  item: 'items',
 };
 
 export const URL = 'http://localhost:8080/';
