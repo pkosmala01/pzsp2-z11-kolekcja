@@ -9,6 +9,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import * as Styled from "./ItemsGrid.styles"
 import { Link } from "react-router-dom";
 
 const ItemsGrid = (props: { param: string | undefined }) => {
@@ -35,20 +36,25 @@ const ItemsGrid = (props: { param: string | undefined }) => {
       <Grid item xs={5} md={3}></Grid>
       <Grid container item xs={5} md={8} spacing={2}>
         {items &&
-          items.map((e: any) => {
+          items.map((e: any, i:any) => {
             return (
-              <Grid item xs={5} md={3}>
+              <Grid item xs={5} md={3} key={i}>
                 <Link
                   to={`/collection/${props.param}/items/${e.item_id}`}
                   key={e.item_id}>
                   <Card>
                     <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        height="140"
-                        image={e.image}
-                        alt={e.name}
-                      />
+                      {typeof e.photo === 'undefined'
+                        ? <Styled.DefaultImage></Styled.DefaultImage>
+                        : (
+                          <CardMedia
+                          component="img"
+                          height="140"
+                          image={e.photo}
+                          alt={e.name}
+                        />
+                        )
+                      }
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                           {e.name}

@@ -1,4 +1,5 @@
 import { Box, styled } from "@mui/material";
+import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import sx from "@mui/system/sx";
 import theme from "../../styles/theme";
 
@@ -10,3 +11,8 @@ export const ItemsWrapper = styled(Box)(
     borderRadius: "20px",
   })
 );
+
+export const DefaultImage = styled(CropOriginalIcon)(sx({
+  width: "100%",
+  fontSize: "30vh"
+}));

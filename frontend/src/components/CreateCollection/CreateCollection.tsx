@@ -40,9 +40,6 @@ const CreateCollection = () => {
   };
 
   const createHandler = () => {
-    console.log("create");
-    console.log(name);
-    console.log(description);
     mutate({ name, description });
   };
 

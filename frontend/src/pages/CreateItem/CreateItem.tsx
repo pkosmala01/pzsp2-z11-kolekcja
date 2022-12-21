@@ -22,8 +22,6 @@ const CreateItem = () => {
     navigate(-1);
   });
 
-  console.log(isLoading, isError);
-
   const createItemHandler = () => {
     if (name === "" || description === "") {
       alert("Fields are required");

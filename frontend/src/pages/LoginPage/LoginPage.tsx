@@ -49,8 +49,6 @@ const LoginPage = () => {
 
   const onClickHandler = () => {
     refetch();
-    console.log(isFetching);
-
   };
 
   const handleUsernameChange = (e: any) => {
