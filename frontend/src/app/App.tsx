@@ -28,36 +28,12 @@ const App = () => {
   return (
     <Routes>
       <Route path="login" element={<LoginPage />} />
-      <Route
-        path="/collection"
-        element={<Layout routes={routes} />}>
-        <Route
-          path="/collection/:collectionId"
-          element={
-            <RequireAuth>
-              <CollectionItems />
-            </RequireAuth>
-          }
-        />
-      </Route>
       <Route path="/" element={<Layout routes={routes} />}>
-        <Route
-          path=""
-          element={
-            <RequireAuth>
-              <CollectionsListPage />
-            </RequireAuth>
-          }
-        />
+        <Route path="" element={ <RequireAuth><CollectionsListPage /></RequireAuth>}/>
+        <Route path="collection/:collectionId" element={<RequireAuth><CollectionItems /></RequireAuth>}/>
       </Route>
-      <Route
-        path="*"
-        element={
-          <RequireAuth>
-            <CollectionsListPage />
-          </RequireAuth>
-        }
-      />
+      <Route path="*" element={<RequireAuth><CollectionsListPage /></RequireAuth>}/>
+      <Route path="" element={<RequireAuth><CollectionsListPage /></RequireAuth>}/>
     </Routes>
   );
 };
