@@ -7,6 +7,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import isLogged from "../untils/isLogged";
 import "../styles/styles.css";
 import CollectionItems from "../components/CollectionItems/CollectionItems";
+import CreateItem from "../pages/CreateItem/CreateItem";
 
 const routes: { title: string; link: string }[] = [
   {
@@ -31,6 +32,7 @@ const App = () => {
       <Route path="/" element={<Layout routes={routes} />}>
         <Route path="" element={ <RequireAuth><CollectionsListPage /></RequireAuth>}/>
         <Route path="collection/:collectionId" element={<RequireAuth><CollectionItems /></RequireAuth>}/>
+        <Route path="createItem/:collectionId" element={<RequireAuth><CreateItem /></RequireAuth>}/>
       </Route>
       <Route path="*" element={<RequireAuth><CollectionsListPage /></RequireAuth>}/>
       <Route path="" element={<RequireAuth><CollectionsListPage /></RequireAuth>}/>

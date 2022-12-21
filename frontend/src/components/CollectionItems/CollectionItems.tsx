@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ItemsGrid from "../ItemsGrid/ItemsGrid";
 import TitleBar from "../TitleBar/TitleBar";
 import { ButtonSx } from "./CollectionItems.styles";
@@ -17,9 +17,11 @@ const CollectionItems = () => {
       </Grid>
       <Grid container justifyContent={"right"} spacing={2}>
         <Grid item xs={4} md={2}>
-          <Button sx={ButtonSx} variant="contained">
-            Create new item
-          </Button>
+          <Link to={`/createItem/${collectionId}`}>
+            <Button sx={ButtonSx} variant="contained">
+              Create new item
+            </Button>
+          </Link>
         </Grid>
         <Grid item xs={4} md={2}>
           <Button sx={ButtonSx} variant="contained">
