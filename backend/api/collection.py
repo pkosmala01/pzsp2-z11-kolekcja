@@ -62,17 +62,6 @@ async def create_collection(collection: CreateCollectionRequest, token: str = De
     CollectionRepository.create_collection(collection.dict())
 
 
-@router.get(
-    "/collections/{collection_id}/items",
-    tags=['collections'],
-    responses={404: {'detail': 'Collection not found'}}
-)
-async def get_collection_items(collection_id: int, token: str = Depends(oauth2_scheme)) -> List[Item]:
-    try:
-        return ItemRepository.get_items_for_collection_id(collection_id=collection_id)
-    except NoResultFound:
-        raise HTTPException(status_code=404, detail='Collection not found') from None
-
 @router.delete(
     "/collections/{collection_id}",
     tags=['collections'],

@@ -24,12 +24,21 @@ class ItemRepository:
         return result.to_dict()
 
     @staticmethod
-    def get_items_for_collection_id(collection_id: int) -> List[Item]:
+    def get_image_for_item(item_id: int) -> ItemTable:
         session = get_session()
-        results = session.query(ItemTable).filter(
-            ItemTable.collection_id == collection_id
-        ).all()
-        return [result.to_dict() for result in results]
+        query = session.query(ItemTable).filter(
+            ItemTable.item_id == item_id
+        )
+        result = query.one()
+        return result.photo
+
+    # @staticmethod
+    # def get_items_for_collection_id(collection_id: int) -> List[Item]:
+    #     session = get_session()
+    #     results = session.query(ItemTable).filter(
+    #         ItemTable.collection_id == collection_id
+    #     ).all()
+    #     return [result.to_dict() for result in results]
 
     @staticmethod
     def create_item(item_dict: Dict[str, Any], properties: Dict[str, Dict[int, str]]):
