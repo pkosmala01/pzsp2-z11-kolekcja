@@ -7,7 +7,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 const CollectionsListPage = () => {
-    const { data, isLoading, isFetching } = useQuery('collection', async () => {
+    const { data, isLoading, isFetching, refetch } = useQuery('collection', async () => {
         const responce = await axios.get(URL + ENDPOINT.collectionsList, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -20,7 +20,7 @@ const CollectionsListPage = () => {
         <Styled.GridContainer container>
             <Grid item xs={2} sm={3} ></Grid>
             <Grid item xs={8} sm={6} >
-                <CreateCollection />
+                <CreateCollection func={()=>{refetch()}} />
                 {isLoading || isFetching
                     ?
                     <Styled.SpinnerBox>

@@ -16,12 +16,13 @@ import {
   CreateCollectionFab,
 } from "./CreateCollection.styles";
 
-const CreateCollection = () => {
+const CreateCollection = (props: {func: any}) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
 
   const { isLoading, mutate } = usePostData(URL + ENDPOINT.createCollection, () => {
+    props.func();
     if(window.innerWidth < 760){
       document.getElementById("create-collection-fab")?.style.setProperty("display", "flex");
     }
