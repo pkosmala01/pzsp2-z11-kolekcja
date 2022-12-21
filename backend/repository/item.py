@@ -14,6 +14,7 @@ class Item(OrmBaseModel):
 
 
 class ItemRepository:
+    @staticmethod
     def get_item_by_id(item_id: int) -> Item:
         session = get_session()
         query = session.query(ItemTable).filter(
@@ -22,25 +23,29 @@ class ItemRepository:
         result = query.one()
         return result.to_dict()
 
+    @staticmethod
     def get_items_for_collection_id(collection_id: int) -> List[Item]:
         session = get_session()
         results = session.query(ItemTable).filter(
             ItemTable.collection_id == collection_id
         ).all()
-        return [Item.from_orm(result) for result in results]
+        return [result.to_dict() for result in results]
 
+    @staticmethod
     def create_item(item_dict: Dict[str, Any]):
         session = get_session()
         item_object = ItemTable(**item_dict)
         session.add(item_object)
         session.commit()
 
-    def delete_item(item_id):
+    @staticmethod
+    def delete_item(item_id: int):
         session = get_session()
         session.query(ItemTable).filter(
             ItemTable.item_id == item_id
         ).delete()
         session.commit()
 
+    @staticmethod
     def edit_item(item_dict: Dict[str, Any]):
         raise NotImplementedError

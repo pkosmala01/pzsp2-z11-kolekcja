@@ -37,3 +37,15 @@ async def get_item(item_id: int, token: str = Depends(oauth2_scheme)) -> Item:
 )
 async def create_item(collection: CreateItemRequest, token: str = Depends(oauth2_scheme)) -> None:
     ItemRepository.create_item(collection.dict())
+
+
+@router.delete(
+    "/items/{item_id}",
+    tags=['items'],
+    responses={404: {'detail': 'Item not found'}}
+)
+async def delete_item(item_id: int, token: str = Depends(oauth2_scheme)) -> None:
+    try:
+        return ItemRepository.delete_item(item_id=item_id)
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='Item not found') from None

@@ -30,6 +30,18 @@ async def get_collection(collection_id: int, token: str = Depends(oauth2_scheme)
 
 
 @router.get(
+    "/user/{user_id}/collections/",
+    tags=['collections'],
+    responses={404: {'detail': 'User not found'}}
+)
+async def get_collections_for_user(user_id: int, token: str = Depends(oauth2_scheme)) -> list[Collection]:
+    try:
+        return CollectionRepository.get_collections_for_user(user_id=user_id)
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='User not found') from None
+
+
+@router.get(
     "/collections",
     tags=['collections'],
     responses={404: {'detail': 'No collections'}}
