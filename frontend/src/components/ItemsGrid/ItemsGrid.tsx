@@ -32,7 +32,7 @@ const ItemsGrid = (props: { param: string | undefined }) => {
   return (
     <Grid container justifyContent={"center"} paddingBottom={"5rem"}>
       <Grid item xs={5} md={3}></Grid>
-      <Grid container xs={5} md={8} spacing={2}>
+      <Grid container item xs={5} md={8} spacing={2}>
         {items &&
           items.map((e: any) => {
             return (

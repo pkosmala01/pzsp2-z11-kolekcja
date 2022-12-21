@@ -25,6 +25,10 @@ const CreateItem = () => {
   console.log(isLoading, isError);
 
   const createItemHandler = () => {
+    if (name === "" || description === "") {
+      alert("Fields are required");
+      return;
+    }
     mutate({
       name,
       description,
@@ -139,7 +143,7 @@ const CreateItem = () => {
             loading
             loadingIndicator="Loading…"
             variant="outlined">
-            Create
+            Creating
           </LoadingButton>
         ) : (
           <Button
