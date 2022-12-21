@@ -9,7 +9,6 @@ const theme = {
   black: "#000000",
   lightGrey: "#D9D9D9",
   darkGrey: "#4D4D4D",
-  button: "#4D648D",
 };
 
 export default theme;
