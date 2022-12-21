@@ -27,7 +27,7 @@ const ItemPage = () => {
           <Styled.ImageWrapper>
             {isLoading || isFetching
               ? <Styled.ImageSkeleton variant="rounded"></Styled.ImageSkeleton>
-              : typeof data.photo === 'string'
+              : typeof data.photo === 'undefined'
                 ?
                 <Styled.DefaultImage />
                 :
