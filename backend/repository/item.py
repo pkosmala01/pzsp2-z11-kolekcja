@@ -49,7 +49,6 @@ class ItemRepository:
         session.flush()
         properties = properties['properties']
         for property_id in properties:
-            # property_value = PropertyValueTable(item_object.item_id, property_id, properties[property_id])
             property_value = PropertyValueTable(
                     item_id=item_object.item_id,
                     property_id=property_id,
@@ -66,6 +65,14 @@ class ItemRepository:
         ).delete()
         session.commit()
 
+    @staticmethod
+    def change_image_for_item(item_id: int, image: bytes):
+        session = get_session()
+        item = session.query(ItemTable).filter(
+            ItemTable.item_id == item_id
+        ).one()
+        item.photo = image
+        session.commit()
     @staticmethod
     def edit_item(item_dict: Dict[str, Any]):
         raise NotImplementedError

@@ -17,7 +17,7 @@ class Collection(OrmBaseModel):
 class CollectionRepository:
     @staticmethod
     def get_collection_by_id(collection_id: int) -> Collection:
-        serialize_rules = ('-users.collection_id','-users.permission_level', '-users.user_id', '-collection_id')
+        serialize_rules = ('-users.collection_id', '-users.permission_level', '-users.user_id', '-collection_id')
         session = get_session()
         query = session.query(CollectionTable).filter(
             CollectionTable.collection_id == collection_id
@@ -39,8 +39,6 @@ class CollectionRepository:
         session = get_session()
         results = session.query(CollectionTable).all()
         return [result.to_dict(rules=serialize_rules) for result in results]
-
-
 
     @staticmethod
     def create_collection(collection_dict: Dict[str, Any]):

@@ -1,6 +1,6 @@
 from typing import Optional, Dict
 
-from fastapi import HTTPException, APIRouter, Depends
+from fastapi import HTTPException, APIRouter, Depends, UploadFile
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.responses import Response
 from pydantic import BaseModel
@@ -50,6 +50,20 @@ async def get_image_for_item(item_id: int, token: str = Depends(oauth2_scheme)) 
         )
     except NoResultFound:
         raise HTTPException(status_code=404, detail='Item not found') from None
+
+
+@router.post(
+    "/items/{item_id}/image",
+    tags=['items'],
+    responses={400: {'detail': 'Invalid request payload'}}
+)
+async def attach_image_to_item(file: UploadFile, item_id: int, token: str = Depends(oauth2_scheme)) -> None:
+    try:
+        image = await file.read()
+        ItemRepository.change_image_for_item(item_id, image)
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='Item not found') from None
+
 
 @router.post(
     "/items",
