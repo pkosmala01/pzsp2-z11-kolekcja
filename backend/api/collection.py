@@ -36,7 +36,7 @@ async def get_collection(collection_id: int, token: str = Depends(oauth2_scheme)
 )
 async def get_collections_for_user(user_id: int, token: str = Depends(oauth2_scheme)) -> list[Collection]:
     try:
-        return CollectionRepository.get_collections_for_user(user_id=user_id)
+        return CollectionRepository.list_collections_for_user(user_id=user_id)
     except NoResultFound:
         raise HTTPException(status_code=404, detail='User not found') from None
 
@@ -70,5 +70,16 @@ async def create_collection(collection: CreateCollectionRequest, token: str = De
 async def get_collection_items(collection_id: int, token: str = Depends(oauth2_scheme)) -> List[Item]:
     try:
         return ItemRepository.get_items_for_collection_id(collection_id=collection_id)
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='Collection not found') from None
+
+@router.delete(
+    "/collections/{collection_id}",
+    tags=['collections'],
+    responses={404: {'detail': 'Collection not found'}}
+)
+async def delete_collection(collection_id: int, token: str = Depends(oauth2_scheme)) -> None:
+    try:
+        return CollectionRepository.delete_collection(collection_id)
     except NoResultFound:
         raise HTTPException(status_code=404, detail='Collection not found') from None
