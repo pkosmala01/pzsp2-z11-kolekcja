@@ -21,7 +21,7 @@ const CreateCollection = () => {
   const [description, setDescription] = useState("");
 
 
-  const { data, isLoading, isError, error, mutate } = usePostData(URL + ENDPOINT.createCollection, () => {
+  const { isLoading, mutate } = usePostData(URL + ENDPOINT.createCollection, () => {
     if(window.innerWidth < 760){
       document.getElementById("create-collection-fab")?.style.setProperty("display", "flex");
     }

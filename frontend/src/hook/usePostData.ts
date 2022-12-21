@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import axios from 'axios';
 
 const usePostData = <T>(url: string, success: CallableFunction) => {
-  const queryClient = useQueryClient();
+//   const queryClient = useQueryClient();
   const { data, isLoading, isError, error, mutate } = useMutation(
     async (data: T) => {
       const resp = await axios.post(url, data, {

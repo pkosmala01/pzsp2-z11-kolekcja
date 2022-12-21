@@ -2,7 +2,7 @@ import { Alert, TextField, Grid } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ENDPOINT, URL } from "../../untils/endpoint";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useQuery } from "react-query";
 
 import {

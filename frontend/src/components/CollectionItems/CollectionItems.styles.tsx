@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import sx from "@mui/system/sx";
 import theme from "../../styles/theme";
 
