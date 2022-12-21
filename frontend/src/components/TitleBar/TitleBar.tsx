@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useGetData from "../../hook/useGetData";
 import { NavigateBack, TitleBarWrapper, TitleDescription, TitleName } from "./TitleBar.tyles";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const TitleBar = (props: { param: string | undefined }) => {
   const navigate = useNavigate();
@@ -16,9 +17,9 @@ const TitleBar = (props: { param: string | undefined }) => {
 
   return (
     <TitleBarWrapper>
-      <NavigateBack onClick={navigateBackHandler}>{"<"}</NavigateBack>
+      <NavigateBack onClick={navigateBackHandler}><ArrowBackIosNewIcon/></NavigateBack>
       <TitleName>{title}</TitleName>
-	  <TitleDescription>{description}</TitleDescription>
+	    <TitleDescription>{description}</TitleDescription>
     </TitleBarWrapper>
   );
 };

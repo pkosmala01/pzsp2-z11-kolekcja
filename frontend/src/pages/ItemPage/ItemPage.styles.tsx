@@ -25,12 +25,12 @@ export const Paper = styled(PaperMui)(sx({
 
 export const ImageWrapper = styled(Box)(sx({
   width: "100%",
-  height: "50vh"
+  height: {xs: "30vh", sm: "50vh"},
 }));
 
 export const ImageSkeleton = styled(Skeleton )(sx({
   width: "100%",
-  height: "50vh",
+  height: {xs: "30vh", sm: "50vh"},
   transform: "none"
 }));
 
@@ -51,7 +51,7 @@ export const TextSkeleton = styled(Skeleton )(sx({
 
 export const DefaultImage = styled(CropOriginalIcon)(sx({
   width: "100%",
-  fontSize: "50vh"
+  fontSize: {xs: "30vh", sm: "50vh"},
 }));
 
 export const TypographyTitle = styled(Typography)(sx({

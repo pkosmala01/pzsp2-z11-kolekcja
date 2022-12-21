@@ -10,9 +10,9 @@ export const LoginTheme = styled(Grid)(
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: theme.bgBlue,
     height: "100vh",
     margin: 0,
+    backgroundColor: theme.bgBlue,
   })
 );
 
@@ -35,11 +35,14 @@ export const LoginButton = styled(Button)(sx({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: theme.primary,
     height: "6vh",
     width: { xs: "20vw", sm: "8vw"},
     borderRadius: "30px",
     color: theme.white,
+    backgroundColor: theme.btn,
+    '&:hover': {
+        background: theme.primary,
+     },
 }));
 
 export const MyFormControl = styled(FormControl)(
