@@ -1,7 +1,8 @@
-from typing import Optional
+from typing import Optional, Dict
 
 from fastapi import HTTPException, APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
+from fastapi.responses import Response
 from pydantic import BaseModel
 from sqlalchemy.exc import NoResultFound
 
@@ -16,6 +17,7 @@ class CreateItemRequest(BaseModel):
     collection_id: int
     description: Optional[str]
     photo: Optional[bytes]
+    properties: Dict[int, str]
 
 
 @router.get(
@@ -30,10 +32,43 @@ async def get_item(item_id: int, token: str = Depends(oauth2_scheme)) -> Item:
         raise HTTPException(status_code=404, detail='Item not found') from None
 
 
+@router.get(
+    "/items/{item_id}/image",
+    tags=['items'],
+    responses={
+        404: {'detail': 'Image not found'},
+        200: {"content": {"image/png": {}}},
+    },
+    response_class=Response
+)
+async def get_image_for_item(item_id: int, token: str = Depends(oauth2_scheme)) -> Response:
+    try:
+        image = ItemRepository.get_image_for_item(item_id=item_id)
+        return Response(
+            content=image,
+            media_type='image/png'
+        )
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='Item not found') from None
+
 @router.post(
     "/items",
     tags=['items'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def create_item(collection: CreateItemRequest, token: str = Depends(oauth2_scheme)) -> None:
-    ItemRepository.create_item(collection.dict())
+async def create_item(item_with_properties: CreateItemRequest, token: str = Depends(oauth2_scheme)) -> None:
+    item = item_with_properties.dict(exclude={'properties'})
+    properties = item_with_properties.dict(include={'properties'})
+    ItemRepository.create_item(item, properties)
+
+
+@router.delete(
+    "/items/{item_id}",
+    tags=['items'],
+    responses={404: {'detail': 'Item not found'}}
+)
+async def delete_item(item_id: int, token: str = Depends(oauth2_scheme)) -> None:
+    try:
+        return ItemRepository.delete_item(item_id=item_id)
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='Item not found') from None

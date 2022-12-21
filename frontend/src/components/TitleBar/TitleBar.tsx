@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import useGetData from "../../hook/useGetData";
-import { ENDPOINT } from "../../untils/endpoint";
 import { NavigateBack, TitleBarWrapper, TitleDescription, TitleName } from "./TitleBar.tyles";
 
 const TitleBar = (props: { param: string | undefined }) => {

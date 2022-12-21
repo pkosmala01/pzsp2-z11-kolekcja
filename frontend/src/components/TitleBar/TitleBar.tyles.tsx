@@ -5,7 +5,6 @@ import theme from "../../styles/theme";
 
 export const TitleBarWrapper = styled(Box)(
   sx({
-    width: "70rem",
     height: "5rem",
     backgroundColor: theme.lightGrey,
     borderRadius: "20px",
@@ -15,9 +14,6 @@ export const TitleBarWrapper = styled(Box)(
     justifyContent: "space-between",
     alignItems: "center",
     padding: "0 2rem",
-    // centering the box
-    left: "50%",
-    transform: "translateX(-50%)",
     marginTop: "2rem",
   })
 );

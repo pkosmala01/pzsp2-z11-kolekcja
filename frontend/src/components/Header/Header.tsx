@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Grid, Box, Button } from "@mui/material";
 import * as Styled from "./Header.styles";
 import { RouteType } from "../../untils/type";
 import isLogged from "../../untils/isLogged";

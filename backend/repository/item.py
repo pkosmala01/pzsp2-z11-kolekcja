@@ -1,7 +1,7 @@
 from typing import Optional, List, Dict, Any
 
 from repository.database import get_session, OrmBaseModel
-from repository.model import ItemTable
+from repository.model import ItemTable, PropertyValueTable
 
 
 class Item(OrmBaseModel):
@@ -14,6 +14,7 @@ class Item(OrmBaseModel):
 
 
 class ItemRepository:
+    @staticmethod
     def get_item_by_id(item_id: int) -> Item:
         session = get_session()
         query = session.query(ItemTable).filter(
@@ -22,25 +23,49 @@ class ItemRepository:
         result = query.one()
         return result.to_dict()
 
+    @staticmethod
+    def get_image_for_item(item_id: int) -> ItemTable:
+        session = get_session()
+        query = session.query(ItemTable).filter(
+            ItemTable.item_id == item_id
+        )
+        result = query.one()
+        return result.photo
+
+    @staticmethod
     def get_items_for_collection_id(collection_id: int) -> List[Item]:
         session = get_session()
         results = session.query(ItemTable).filter(
             ItemTable.collection_id == collection_id
         ).all()
-        return [Item.from_orm(result) for result in results]
+        return [result.to_dict() for result in results]
 
-    def create_item(item_dict: Dict[str, Any]):
-        session = get_session()
+    @staticmethod
+    def create_item(item_dict: Dict[str, Any], properties: Dict[str, Dict[int, str]]):
         item_object = ItemTable(**item_dict)
+        print(properties)
+        session = get_session()
         session.add(item_object)
+        session.flush()
+        properties = properties['properties']
+        for property_id in properties:
+            # property_value = PropertyValueTable(item_object.item_id, property_id, properties[property_id])
+            property_value = PropertyValueTable(
+                    item_id=item_object.item_id,
+                    property_id=property_id,
+                    value=properties[property_id]
+                )
+            session.add(property_value)
         session.commit()
 
-    def delete_item(item_id):
+    @staticmethod
+    def delete_item(item_id: int):
         session = get_session()
         session.query(ItemTable).filter(
             ItemTable.item_id == item_id
         ).delete()
         session.commit()
 
+    @staticmethod
     def edit_item(item_dict: Dict[str, Any]):
         raise NotImplementedError

@@ -13,4 +13,5 @@ class PropertyDefinitionTable(Base, SerializerMixin):
     name = Column(String, nullable=False)
     data_type = Column(String, nullable=False)
     is_optional = Column(Boolean, nullable=False)
+    description = Column(String)
     property_value = relationship("PropertyValueTable", back_populates="property_definition")
