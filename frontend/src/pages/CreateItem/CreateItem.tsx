@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+// import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ButtonSx } from "../../components/CollectionItems/CollectionItems.styles";
@@ -137,7 +137,7 @@ const CreateItem = () => {
         </Button>
       </Grid>
       <Grid item xs={10} md={4} margin={"1rem"}>
-        {isLoading ? (
+        {/* {isLoading ? (
           <LoadingButton
             fullWidth
             sx={ButtonSx}
@@ -154,7 +154,7 @@ const CreateItem = () => {
             onClick={createItemHandler}>
             Create
           </Button>
-        )}
+        )} */}
       </Grid>
     </Grid>
   );
