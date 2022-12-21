@@ -6,6 +6,7 @@ from repository.model.base import Base
 
 class PermissionTable(Base, SerializerMixin):
     __tablename__ = "permissions"
+    serialize_rules = ('-collection_user.permission',)
 
     permission_level = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
