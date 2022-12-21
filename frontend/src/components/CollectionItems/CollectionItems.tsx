@@ -28,9 +28,7 @@ const CollectionItems = () => {
         </Grid>
         <Grid item xs={1} md={1}></Grid>
       </Grid>
-      <Grid item xs={10} md={10}>
-        <ItemsGrid param={collectionId} />
-      </Grid>
+      <ItemsGrid param={collectionId} />
     </Grid>
   );
 };

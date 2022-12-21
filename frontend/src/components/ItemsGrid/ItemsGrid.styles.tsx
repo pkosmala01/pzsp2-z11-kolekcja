@@ -4,8 +4,8 @@ import theme from "../../styles/theme";
 
 export const ItemsWrapper = styled(Box)(
   sx({
-    width: "70rem",
-    height: "auto",
+    // width: "70rem",
+    // height: "auto",
     backgroundColor: theme.white,
     borderRadius: "20px",
   })
