@@ -1,7 +1,7 @@
 from typing import Optional, List, Dict, Any
 
 from repository.database import get_session, OrmBaseModel
-from repository.model import ItemTable
+from repository.model import ItemTable, PropertyValueTable
 
 
 class Item(OrmBaseModel):
@@ -32,10 +32,21 @@ class ItemRepository:
         return [result.to_dict() for result in results]
 
     @staticmethod
-    def create_item(item_dict: Dict[str, Any]):
-        session = get_session()
+    def create_item(item_dict: Dict[str, Any], properties: Dict[str, Dict[int, str]]):
         item_object = ItemTable(**item_dict)
+        print(properties)
+        session = get_session()
         session.add(item_object)
+        session.flush()
+        properties = properties['properties']
+        for property_id in properties:
+            # property_value = PropertyValueTable(item_object.item_id, property_id, properties[property_id])
+            property_value = PropertyValueTable(
+                    item_id=item_object.item_id,
+                    property_id=property_id,
+                    value=properties[property_id]
+                )
+            session.add(property_value)
         session.commit()
 
     @staticmethod

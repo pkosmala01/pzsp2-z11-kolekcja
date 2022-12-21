@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict
 
 from fastapi import HTTPException, APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -16,6 +16,7 @@ class CreateItemRequest(BaseModel):
     collection_id: int
     description: Optional[str]
     photo: Optional[bytes]
+    properties: Dict[int, str]
 
 
 @router.get(
@@ -35,9 +36,10 @@ async def get_item(item_id: int, token: str = Depends(oauth2_scheme)) -> Item:
     tags=['items'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def create_item(collection: CreateItemRequest, token: str = Depends(oauth2_scheme)) -> None:
-    ItemRepository.create_item(collection.dict())
-
+async def create_item(item_with_properties: CreateItemRequest, token: str = Depends(oauth2_scheme)) -> None:
+    item = item_with_properties.dict(exclude={'properties'})
+    properties = item_with_properties.dict(include={'properties'})
+    ItemRepository.create_item(item, properties)
 
 @router.delete(
     "/items/{item_id}",

@@ -4,7 +4,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
 
-from api import collection, item, token
+from api import collection, item, token, properties
 from api.token import decode_access_token
 
 app = FastAPI()
@@ -27,6 +27,7 @@ routers = [
     collection.router,
     item.router,
     token.router,
+    properties.router,
 ]
 
 for router in routers:
