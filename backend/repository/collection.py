@@ -41,10 +41,18 @@ class CollectionRepository:
         return [result.to_dict(rules=serialize_rules) for result in results]
 
     @staticmethod
-    def create_collection(collection_dict: Dict[str, Any]):
+    def create_collection(collection_dict: Dict[str, Any], user_id: int):
         session = get_session()
         collection_object = CollectionTable(**collection_dict)
         session.add(collection_object)
+        session.flush()
+        collection_administrator_permission_level = 2
+        collection_user = CollectionUserTable(
+            user_id=user_id,
+            permission_level=collection_administrator_permission_level,
+            collection_id=collection_object.collection_id
+        )
+        session.add(collection_user)
         session.commit()
 
     @staticmethod

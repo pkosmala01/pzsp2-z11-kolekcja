@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from sqlalchemy.orm.exc import NoResultFound
 
+from api.token import decode_access_token
 from repository.collection import Collection, CollectionRepository
 from repository.item import Item, ItemRepository
 
@@ -60,7 +61,8 @@ async def get_collection_items(collection_id: int, token: str = Depends(oauth2_s
 )
 async def list_collections(token: str = Depends(oauth2_scheme)) -> List[Collection]:
     try:
-        return CollectionRepository.list_collections()
+        user_id = int(decode_access_token(token).sub)
+        return CollectionRepository.list_collections_for_user(user_id=user_id)
     except NoResultFound:
         raise HTTPException(status_code=404, detail='No collections') from None
 
@@ -71,7 +73,8 @@ async def list_collections(token: str = Depends(oauth2_scheme)) -> List[Collecti
     responses={400: {'detail': 'Invalid request payload'}}
 )
 async def create_collection(collection: CreateCollectionRequest, token: str = Depends(oauth2_scheme)) -> None:
-    CollectionRepository.create_collection(collection.dict())
+    user_id = int(decode_access_token(token).sub)
+    CollectionRepository.create_collection(collection.dict(), user_id)
 
 
 @router.delete(
