@@ -35,9 +35,12 @@ class CollectionRepository:
 
     @staticmethod
     def list_collections() -> List[Collection]:
+        serialize_rules = ('-users', '-items',)
         session = get_session()
         results = session.query(CollectionTable).all()
-        return [result.to_dict() for result in results]
+        return [result.to_dict(rules=serialize_rules) for result in results]
+
+
 
     @staticmethod
     def create_collection(collection_dict: Dict[str, Any]):
