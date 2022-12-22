@@ -4,7 +4,7 @@ import ItemsGrid from "../ItemsGrid/ItemsGrid";
 import TitleBar from "../TitleBar/TitleBar";
 import { ButtonSx } from "./CollectionItems.styles";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AddIcon from '@mui/icons-material/Add';
 
 const CollectionItems = () => {
   const params = useParams();
@@ -21,8 +21,8 @@ const CollectionItems = () => {
         <Grid item xs={2} md={2}>
           <Link to={`/createItem/${collectionId}`}>
             <Button sx={ButtonSx} variant="contained">
-                <Box sx={{display: {xs: "none", sm: "block"}}} >Create new user</Box>
-                <PersonAddIcon sx={{display: {xs: "block", sm: "none"}}} fontSize="large"/>
+                <Box sx={{display: {xs: "none", sm: "block"}}} >Create new item</Box>
+                <AddIcon sx={{display: {xs: "block", sm: "none"}}} fontSize="large"/>
             </Button>
           </Link>
         </Grid>
