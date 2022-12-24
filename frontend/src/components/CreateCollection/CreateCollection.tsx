@@ -9,12 +9,12 @@ import {
   MyFormControl,
   SubmitButton,
   BgBlur,
-  CircularProgress,
   blur,
   CreateBtnWrapper,
   CreateCollectionBtn,
   CreateCollectionFab,
 } from "./CreateCollection.styles";
+import CircularProgress from "../CircularProgress";
 
 const CreateCollection = (props: {func: any}) => {
   const [name, setName] = useState("");
@@ -68,7 +68,7 @@ const CreateCollection = (props: {func: any}) => {
         {
         isLoading &&
           <BgBlur>
-            <CircularProgress></CircularProgress>
+            <CircularProgress />
           </BgBlur>
         }
         <Box sx={isLoading ? blur : {}}>

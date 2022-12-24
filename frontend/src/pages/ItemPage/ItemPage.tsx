@@ -61,5 +61,3 @@ const ItemPage = () => {
 }
 
 export default ItemPage;
-
-// const responce = await axios.get(URL + `collections/${props.param}/items`, {

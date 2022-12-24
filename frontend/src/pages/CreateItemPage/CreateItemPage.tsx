@@ -1,12 +1,11 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import TitleBar from "../../components/TitleBar/TitleBar";
 import usePostData from "../../hook/usePostData";
 
 import * as Styled from "./CreateItemPage.styles"
-import theme from "../../styles/theme";
 import { URL } from "../../untils/endpoint";
+import { TextInput, TitleBar } from "../../components";
 
 const CreateItemPage = () => {
   const params = useParams();
@@ -41,123 +40,33 @@ const CreateItemPage = () => {
   };
 
   return (
-    <Grid container justifyContent={"center"} paddingBottom={"5rem"}>
+    <Styled.GridOuterContainer container >
       <Grid container justifyContent={"center"}>
         <Grid item xs={10} md={10} margin={"1rem"}>
           <TitleBar param={collectionId} />
         </Grid>
       </Grid>
-      <Grid item xs={8} md={8}>
-        <Typography
-          variant="h4"
-          component="h4"
-          margin={"1rem"}
-          display={"block"}>
+      <Styled.GridItem item xs={8} md={8}>
+        <Typography variant="h4" component="h4" margin={"1rem"} display={"block"}>
           Create new item
         </Typography>
-      </Grid>
-      <Grid item xs={10} md={8} margin={"1rem"} display={"block"}>
-        <TextField
-          required
-          fullWidth
-          id="outlined-basic"
-          label="Name"
-          variant="outlined"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setName(e.target.value)
-          }
-        />
-      </Grid>
-      <Grid item xs={10} md={8} margin={"1rem"}>
-        <TextField
-          required
-          fullWidth
-          id="outlined-basic"
-          label="Description"
-          variant="outlined"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setDescription(e.target.value)
-          }
-        />
-      </Grid>
-      <Grid item xs={10} md={8} margin={"1rem"}>
-        <TextField
-          required
-          fullWidth
-          id="outlined-basic"
-          label="Condition"
-          variant="outlined"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setCondition(e.target.value)
-          }
-        />
-      </Grid>
-      <Grid item xs={10} md={8} margin={"1rem"}>
-        <TextField
-          required
-          fullWidth
-          id="outlined-basic"
-          label="Location"
-          variant="outlined"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setLocation(e.target.value)
-          }
-        />
-      </Grid>
-      <Grid item xs={10} md={8} margin={"1rem"}>
-        <TextField
-          required
-          fullWidth
-          id="outlined-basic"
-          label="Price"
-          variant="outlined"
-          type="number"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPrice(+e.target.value)
-          }
-        />
-      </Grid>
-      <Grid item xs={10} md={8} margin={"1rem"}>
-        <TextField
-          required
-          fullWidth
-          id="outlined-basic"
-          label="Category"
-          variant="outlined"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setCategory(e.target.value)
-          }
-        />
-      </Grid>
-      <Grid item xs={10} md={8} margin={"1rem"}>
-        <Button sx={{    backgroundColor: theme.btn,
-    '&:hover': {
-        background: theme.primary,
-     },}} variant="contained" component="label" >
+        <TextInput label="Name" required onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)} />
+        <TextInput label="Description" required onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)} />
+        <TextInput label="Condition" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCondition(e.target.value)} />
+        <TextInput label="Location" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocation(e.target.value)} />
+        <TextInput label="Price" type="number" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(+e.target.value)} />
+        <TextInput label="Category" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCategory(e.target.value)} />
+        <Styled.UploadButton variant="contained" component="label"  >
           Upload
           <input hidden accept="image/*" multiple type="file" />
-        </Button>
-      </Grid>
-      <Grid item xs={10} md={4} margin={"1rem"}>
-        {/* {isLoading ? (
-          <LoadingButton
-            fullWidth
-            sx={ButtonSx}
-            loading
-            loadingIndicator="Loading…"
-            variant="outlined">
-            Creating
-          </LoadingButton>
-        ) : ( */}
-          <Styled.Button
-            fullWidth
-            variant="contained"
-            onClick={createItemHandler}>
-            Create
-          </Styled.Button>
-        {/* )} */}
-      </Grid>
-    </Grid>
+        </Styled.UploadButton>
+        <Styled.SubmitButtonWrapper>
+          <Styled.SubmitButton fullWidth variant="contained" onClick={createItemHandler}>
+              Create
+            </Styled.SubmitButton>
+        </Styled.SubmitButtonWrapper>
+      </Styled.GridItem>
+    </Styled.GridOuterContainer>
   );
 };
 

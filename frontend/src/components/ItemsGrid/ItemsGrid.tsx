@@ -13,7 +13,6 @@ import * as Styled from "./ItemsGrid.styles"
 import { Link } from "react-router-dom";
 
 const ItemsGrid = (props: { param: string | undefined }) => {
-  //   const { data, isLoading } = useGetData(`collections/${props.param}/items`);
   const { data: itemsData, isLoading: itemsLoading } = useQuery(
     "collectionItems",
     async () => {
@@ -46,14 +45,7 @@ const ItemsGrid = (props: { param: string | undefined }) => {
                     <CardActionArea>
                       {typeof e.photo === 'undefined'
                         ? <Styled.DefaultImage></Styled.DefaultImage>
-                        : (
-                          <CardMedia
-                          component="img"
-                          height="140"
-                          image={e.photo}
-                          alt={e.name}
-                        />
-                        )
+                        : <Styled.CartMediaS component='img' image={e.photo} alt={e.name} />
                       }
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">

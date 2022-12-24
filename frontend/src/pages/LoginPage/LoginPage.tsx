@@ -13,9 +13,9 @@ import {
   MyFormControl,
   Title,
   BgBlur,
-  CircularProgress,
   blur,
 } from "./LoginPage.styles";
+import { CircularProgress } from "../../components";
 
 const LoginPage = () => {
   const [ username, setUsername ] = useState("");
@@ -47,18 +47,6 @@ const LoginPage = () => {
 
   });
 
-  const onClickHandler = () => {
-    refetch();
-  };
-
-  const handleUsernameChange = (e: any) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e: any) => {
-    setPassword(e.target.value);
-  };
-
   return (
     <LoginTheme container>
       <Grid item xs={2} sm={3} ></Grid>
@@ -66,17 +54,21 @@ const LoginPage = () => {
         {
         (isFetching || isLoading)  &&
           <BgBlur>
-            <CircularProgress></CircularProgress>
+            <CircularProgress/>
           </BgBlur>
         }
         <LoginBox sx={(isFetching || isLoading) ? blur : {}}>
-          <Alert id='login-failed' severity="error" style={ isError ? {"display": "flex"} : {"display": "none"}} ><LoginTypography>Login Failed</LoginTypography></Alert>
+          {isError &&
+            <Alert severity="error">
+              <LoginTypography>Login Failed</LoginTypography>
+            </Alert>
+          }
           <Title>LOGIN</Title>
           <MyFormControl>
-            <TextField id="filled-username" onChange={handleUsernameChange} label="Email" variant="filled" required disabled={isFetching || isLoading}/>
-            <TextField id="filled-password" onChange={handlePasswordChange} label="Password" variant="filled" required type="password" disabled={isFetching || isLoading}/>
+            <TextField id="filled-username" onChange={(e: any) => setUsername(e.target.value)} label="Email" variant="filled" required disabled={isFetching || isLoading}/>
+            <TextField id="filled-password" onChange={(e: any) => setPassword(e.target.value)} label="Password" variant="filled" required type="password" disabled={isFetching || isLoading}/>
           </MyFormControl>
-          <LoginButton onClick={onClickHandler} variant="contained" disabled={isFetching || isLoading}>
+          <LoginButton onClick={() => refetch()} variant="contained" disabled={isFetching || isLoading}>
             <LoginTypography>LOGIN</LoginTypography>
           </LoginButton>
         </LoginBox>

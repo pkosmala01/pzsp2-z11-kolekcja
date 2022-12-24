@@ -12,10 +12,6 @@ export const GridContainer = styled(Grid)(sx({
   display: "flex",
 }));
 
-export const CircularProgress = styled(CircularProgressMui)(sx({
-  color: theme.primary,
-}));
-
 export const Paper = styled(PaperMui)(sx({
   margin: '1vw',
   padding: '2vh',
@@ -71,6 +67,5 @@ export const TypographyDesc = styled(Typography)(sx({
   fontSize: '2vh',
   fontWeight: 500,
   maxHeight: "6vh",
-  // display: { xs: "none", sm: "inherit" },
 }));
 

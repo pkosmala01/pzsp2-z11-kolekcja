@@ -10,13 +10,13 @@ import {
 
 import theme from "../../styles/theme";
 
-export const GridContainer = styled(Grid)(() => ({
+export const GridContainer = styled(Grid)(sx({
     margin: 0,
     backgroundColor: theme.primary,
     height: "9vh",
 }));
 
-export const LogoWrapper = styled(Grid)(() => ({
+export const LogoWrapper = styled(Grid)(sx({
     display: 'flex',
     flexDirection: 'row-reverse',
     justifyContent: 'center',
@@ -24,7 +24,7 @@ export const LogoWrapper = styled(Grid)(() => ({
     textAlign: 'center',
 }));
 
-export const NavWrapper = styled(Grid)(() => ({
+export const NavWrapper = styled(Grid)(sx({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -32,22 +32,22 @@ export const NavWrapper = styled(Grid)(() => ({
     textAlign: 'center'
 }));
 
-export const LoginWrapper = styled(Grid)(() => ({
+export const LoginWrapper = styled(Grid)(sx({
     display: 'flex',
     flexDirection: 'row-reverse',
     alignItems: 'center',
     textAlign: 'center'
 }));
 
-export const Typography = styled(TypographyMui)(() => ({
+export const Typography = styled(TypographyMui)(sx({
     color: theme.fontLight,
 }));
 
-export const BoxTypography = styled(BoxMui)(() => ({
+export const BoxTypography = styled(BoxMui)(sx({
     paddingLeft: '2vw',
 }));
 
-export const Button = styled(BtnSecondary)(() => ({
+export const Button = styled(BtnSecondary)(sx({
     width: '7vw',
     height: '5vh',
     marginRight: '2vw',

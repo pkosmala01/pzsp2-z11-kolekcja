@@ -1,42 +1,33 @@
-import { Box, Button, FormControl,
-  CircularProgress as CircularProgressMui,
+import { Box, FormControl,
 } from "@mui/material";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import { styled } from "@mui/system";
 import sx from "@mui/system/sx";
 import theme from "../../styles/theme";
 
-export const CollectionWrapper = styled(Box)(
-  sx({
-    margin: "1vw",
-    padding: "2vh",
-    backgroundColor: theme.white,
-    borderRadius: "20px",
-    boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.45)",
-    position: "relative",
-  })
-);
+export const CollectionWrapper = styled(Box)(sx({
+  margin: "1vw",
+  padding: "2vh",
+  backgroundColor: theme.white,
+  borderRadius: "20px",
+  boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.45)",
+  position: "relative",
+}));
 
-export const MyFormControl = styled(FormControl)(
-  sx({
-    margin: "1rem",
-  })
-);
+export const MyFormControl = styled(FormControl)(sx({
+  margin: "1rem",
+}));
 
-export const ButtonTypography = styled(Box)(
-  sx({
-    fontSize: "1vw",
-    fontWeight: 500,
-  })
-);
+export const ButtonTypography = styled(Box)(sx({
+  fontSize: "1vw",
+  fontWeight: 500,
+}));
 
-export const CreateBannerTypography = styled(Box)(
-  sx({
-    fontSize: { xs: "3vh", sm: "2vw" },
-    fontWeight: 500,
-    margin: "1rem",
-  })
-);
+export const CreateBannerTypography = styled(Box)(sx({
+  fontSize: { xs: "3vh", sm: "2vw" },
+  fontWeight: 500,
+  margin: "1rem",
+}));
 
 export const SubmitButton = styled(BtnPrimary)(sx({
   marginTop: "1.25rem",
@@ -59,10 +50,6 @@ export const BgBlur = styled(Box)(sx({
 export const blur = sx({
   filter: "blur(1px)"
 })
-
-export const CircularProgress = styled(CircularProgressMui)(sx({
-  color: theme.primary,
-}));
 
 export const CreateBtnWrapper = styled(Box)(sx({
   display: { xs: "none", sm: "flex" },

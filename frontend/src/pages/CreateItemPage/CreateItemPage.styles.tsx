@@ -1,12 +1,38 @@
 import sx from "@mui/system/sx";
 import { styled } from "@mui/system";
-import BtnPrimary from "../../components/BtnPrimary/BtnPrimary";
+import { Grid, Box } from "@mui/material";
+import { BtnPrimary } from "../../components";
 
-// create xs custom for mui components
-export const Button = styled(BtnPrimary)(sx({
+export const GridOuterContainer = styled(Grid)(sx({
+  justifyContent: "center",
+  paddingBottom: "5rem"
+}));
+
+export const GridInnerContainer = styled(Grid)(sx({
+  justifyContent: "center",
+  paddingBottom: "5rem"
+}));
+
+export const GridItem = styled(Grid)(sx({
+  margin: "1rem",
+  paddingBottom: "5rem"
+}));
+
+export const UploadButton = styled(BtnPrimary)(sx({
+  margin: "1rem",
+})) as typeof BtnPrimary;
+
+export const SubmitButtonWrapper = styled(Box)(sx({
   display: "flex",
-  margin: "1rem 0",
+  margin: "2rem",
+  justifyContent: "center",
+}));
+
+export const SubmitButton = styled(BtnPrimary)(sx({
+  display: "flex",
   padding: "0.5rem",
   height: "3rem",
-  width: {sm: "100%"},
+  width: {sm: "50%"},
 }));
+
+

@@ -77,8 +77,3 @@ export const SpinnerBox = styled(Box)(sx({
     alignItems: "center",
     justifyContent: "center",
 }));
-
-export const CircularProgress = styled(CircularProgressMui)(sx({
-    color: theme.primary,
-}));
-
