@@ -1,12 +1,12 @@
 import { Box, Grid } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import ItemsGrid from "../ItemsGrid/ItemsGrid";
-import TitleBar from "../TitleBar/TitleBar";
-import * as Styled from "./CollectionItems.styles";
+import ItemsGrid from "../../components/ItemsGrid/ItemsGrid";
+import TitleBar from "../../components/TitleBar/TitleBar";
+import * as Styled from "./ItemsListPage.styles";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import AddIcon from '@mui/icons-material/Add';
 
-const CollectionItems = () => {
+const ItemsListPage = () => {
   const params = useParams();
   const { collectionId } = params;
   return (
@@ -39,4 +39,4 @@ const CollectionItems = () => {
   );
 };
 
-export default CollectionItems;
+export default ItemsListPage;

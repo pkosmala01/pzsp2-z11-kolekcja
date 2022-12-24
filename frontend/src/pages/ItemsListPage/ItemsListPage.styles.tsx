@@ -1,6 +1,6 @@
 import sx from "@mui/system/sx";
 import { styled } from "@mui/system";
-import BtnPrimary from "../BtnPrimary/BtnPrimary";
+import BtnPrimary from "../../components/BtnPrimary/BtnPrimary";
 
 // create xs custom for mui components
 export const Button = styled(BtnPrimary)(sx({

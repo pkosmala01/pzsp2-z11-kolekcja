@@ -4,11 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import TitleBar from "../../components/TitleBar/TitleBar";
 import usePostData from "../../hook/usePostData";
 
-import * as Styled from "./CreateItem.styles"
+import * as Styled from "./CreateItemPage.styles"
 import theme from "../../styles/theme";
 import { URL } from "../../untils/endpoint";
 
-const CreateItem = () => {
+const CreateItemPage = () => {
   const params = useParams();
   const { collectionId } = params;
   const [name, setName] = useState<string>("");
@@ -161,4 +161,4 @@ const CreateItem = () => {
   );
 };
 
-export default CreateItem;
+export default CreateItemPage;
