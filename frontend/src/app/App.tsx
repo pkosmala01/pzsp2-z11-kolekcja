@@ -1,15 +1,18 @@
 import { Routes, Route } from "react-router-dom";
 
 import { Layout } from "../components";
-import CollectionsListPage from "../pages/CollectionsListPage/CollectionsListPage";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import ItemPage from "../pages/ItemPage/ItemPage";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
-import CreateItemPage from "../pages/CreateItemPage/CreateItemPage";
-import ItemsListPage from "../pages/ItemsListPage/ItemsListPage";
+
 
 import isLogged from "../untils/isLogged";
 import "../styles/styles.css";
+import {
+  CollectionsListPage,
+  CreateItemPage,
+  ItemPage,
+  ItemsListPage,
+  LoginPage,
+  NotFoundPage
+} from "../pages";
 
 const routes: { title: string; link: string }[] = [
   {
