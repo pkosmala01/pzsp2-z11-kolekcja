@@ -1,18 +1,18 @@
 import { Box, Grid } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import * as Styled from "./ItemsListPage.styles";
+import * as Styled from "./CollectionItemsPage.styles";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import AddIcon from '@mui/icons-material/Add';
 import { ItemsGrid, TitleBar } from "../../components";
 
-const ItemsListPage = () => {
+const CollectionItemsPage = () => {
   const params = useParams();
   const { collectionId } = params;
   return (
     <Grid container>
       <Grid container justifyContent={"center"}>
         <Grid item xs={10} md={10}>
-          <TitleBar param={collectionId} />
+          <TitleBar collectionId={collectionId!} />
         </Grid>
       </Grid>
       <Grid container justifyContent={"right"} spacing={{xs:'2', sm: '10'}}>
@@ -33,9 +33,9 @@ const ItemsListPage = () => {
         </Grid>
         <Grid item xs={1} md={1}></Grid>
       </Grid>
-      <ItemsGrid param={collectionId} />
+      <ItemsGrid param={collectionId!} />
     </Grid>
   );
 };
 
-export default ItemsListPage;
+export default CollectionItemsPage;

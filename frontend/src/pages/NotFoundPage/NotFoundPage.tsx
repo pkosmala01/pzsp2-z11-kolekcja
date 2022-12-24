@@ -5,7 +5,7 @@ const NotFoundPage = () => {
   return (
     <Styled.Wrapper>
       <Styled.LinkWrapper to='/'>
-        <img src={'./notfound.svg'} />
+        <img src={'./notfound.svg'} alt='notfound'/>
       </Styled.LinkWrapper>
       <Styled.TitleTypography>Page Not Found</Styled.TitleTypography>
     </Styled.Wrapper>

@@ -1,8 +1,6 @@
 import { TextField, Box } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from "react";
-import usePostData from "../../hook/usePostData";
-import { ENDPOINT, URL } from "../../untils/endpoint";
 import {
   CollectionWrapper,
   CreateBannerTypography,
@@ -15,14 +13,16 @@ import {
   CreateCollectionFab,
 } from "./CreateCollection.styles";
 import CircularProgress from "../CircularProgress";
+import { IItem } from "../../models";
+import { useCreateCollection } from "../../hook";
 
-const CreateCollection = (props: {func: any}) => {
+const CreateCollection = (props: {func: CallableFunction}) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
 
-  const { isLoading, mutate } = usePostData(URL + ENDPOINT.createCollection, () => {
-    props.func();
+  const { mutate, isLoading, } = useCreateCollection({name, description} as IItem, () => {
+    props.func()
     if(window.innerWidth < 760){
       document.getElementById("create-collection-fab")?.style.setProperty("display", "flex");
     }
@@ -30,19 +30,7 @@ const CreateCollection = (props: {func: any}) => {
       document.getElementById("create-collection-btn")?.style.setProperty("display", "flex");
     }
     document.getElementById("create-collection-form")?.style.setProperty("display", "none");
-  })
-
-  const handleNameChange = (e: any) => {
-    setName(e.target.value);
-  };
-
-  const handleDescriptionChange = (e: any) => {
-    setDescription(e.target.value);
-  };
-
-  const createHandler = () => {
-    mutate({ name, description });
-  };
+  });
 
   const toggleCreateCollection = (e: any) => {
     document.getElementById("create-collection-btn")?.style.setProperty("display", "none");
@@ -76,7 +64,7 @@ const CreateCollection = (props: {func: any}) => {
           <MyFormControl>
             <TextField
               id="filled-name"
-              onChange={handleNameChange}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
               label="Name"
               variant="standard"
               required
@@ -86,14 +74,13 @@ const CreateCollection = (props: {func: any}) => {
           <MyFormControl>
             <TextField
               id="filled-description"
-              onChange={handleDescriptionChange}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
               label="Description"
               variant="standard"
               disabled={isLoading}
             />
           </MyFormControl>
-          <SubmitButton onClick={createHandler} disabled={isLoading} variant="contained">
-            {/* <ButtonTypography>Create</ButtonTypography> */}
+          <SubmitButton onClick={() => {mutate()}} disabled={isLoading} variant="contained">
             Create
           </SubmitButton>
         </Box>

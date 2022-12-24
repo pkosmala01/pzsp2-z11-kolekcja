@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import useGetData from "../../hook/useGetData";
 import { NavigateBack, TitleBarWrapper, TitleDescription, TitleName } from "./TitleBar.styles";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { useCollection } from "../../hook";
 
-const TitleBar = (props: { param: string | undefined }) => {
+const TitleBar = (props: { collectionId: string }) => {
   const navigate = useNavigate();
 
   const navigateBackHandler = () => {
     navigate(-1);
   };
 
-  const { data, isLoading } = useGetData("collections/" + props.param);
+  const { data, isLoading } = useCollection(+props.collectionId);
 
   const title = isLoading ? "Loading..." : data.name;
   const description = isLoading ? "Loading..." : data.description;

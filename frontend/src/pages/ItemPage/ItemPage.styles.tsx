@@ -1,6 +1,5 @@
 import {
   Grid, Box, Typography, Skeleton,
-  CircularProgress as CircularProgressMui,
   Paper as PaperMui,
 } from "@mui/material";
 import CropOriginalIcon from '@mui/icons-material/CropOriginal';

@@ -1,28 +1,19 @@
-import axios from "axios";
 import { Grid, Divider } from "@mui/material/";
-import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { URL, ENDPOINT } from "../../untils/endpoint";
 import * as Styled from "./ItemPage.styles";
 import TitleBar from "../../components/TitleBar/TitleBar";
+import { useItem } from "../../hook";
 
 const ItemPage = () => {
   const { collectionId, itemId }  = useParams();
 
-  const { data, isLoading, isFetching } = useQuery('item', async () => {
-    const responce = await axios.get(`${URL}${ENDPOINT.item}/${itemId}`, {
-      headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-    });
-    return responce.data;
-  })
+  const { data, isLoading, isFetching } = useItem(+itemId!);
 
   return (
     <Styled.GridContainer container>
       <Grid item xs={2} sm={3} ></Grid>
       <Grid item xs={8} sm={6} >
-        <TitleBar param={collectionId} />
+        <TitleBar collectionId={collectionId!} />
         <Styled.Paper>
           <Styled.ImageWrapper>
             {isLoading || isFetching

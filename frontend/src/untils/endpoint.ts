@@ -1,9 +1,11 @@
 export const ENDPOINT = {
-  login: 'token',
-  register: 'register',
-  createCollection: 'collections',
-  collectionsList: 'collections',
-  item: 'items',
+  login: '/token',
+  register: '/register',
+  collection: '/collections',
+  createCollection: '/collections',
+  collectionsList: '/collections',
+  createItem: '/items',
+  item: '/items',
 };
 
-export const URL = 'http://localhost:8080/';
+export const API = 'http://localhost:8080';

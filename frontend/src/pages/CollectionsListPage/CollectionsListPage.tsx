@@ -1,20 +1,11 @@
 import { Link } from "react-router-dom";
 import { Grid, Divider } from "@mui/material";
 import * as Styled from "./CollectionsListPage.styles";
-import { ENDPOINT, URL } from "../../untils/endpoint";
-import axios from "axios";
-import { useQuery } from "react-query";
 import { CircularProgress, CreateCollection } from "../../components";
+import { useCollections } from "../../hook";
 
 const CollectionsListPage = () => {
-  const { data, isLoading, isFetching, refetch } = useQuery('collection', async () => {
-    const responce = await axios.get(URL + ENDPOINT.collectionsList, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    });
-    return responce.data;
-  })
+  const { data, isLoading, isFetching, refetch } = useCollections();
 
   return (
     <Styled.GridContainer container>
@@ -33,7 +24,7 @@ const CollectionsListPage = () => {
                   <Link to={`/collection/${e.collection_id}`} key={i}>
                     <Styled.ListItem>
                       <Styled.ListItemAvatar>
-                        <Styled.img src={'./coll.svg'} />
+                        <Styled.Img src={'./coll.svg'} />
                       </Styled.ListItemAvatar>
                       <Styled.TextBlock>
                         <Styled.TypographyTitle>{e.name}</Styled.TypographyTitle>

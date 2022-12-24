@@ -5,7 +5,6 @@ import {
     ListItem as ListItemMui,
     List as ListMui,
     ListItemAvatar as ListItemAvatarMui,
-    CircularProgress as CircularProgressMui,
     Paper as PaperMui,
 } from "@mui/material";
 
@@ -28,7 +27,7 @@ export const ListItemAvatar = styled(ListItemAvatarMui)(sx({
     width: { xs: "100%", sm: "inherit" },
 }));
 
-export const img = styled('img')(sx({
+export const Img = styled('img')(sx({
     height: { xs: "inherit", sm: "100%" },
     width: { xs: "100%", sm: "inherit" },
 }));

@@ -5,7 +5,6 @@ import {
     Grid,
     Box as BoxMui,
     Typography as TypographyMui,
-    Button as ButtonMui
 } from "@mui/material";
 
 import theme from "../../styles/theme";

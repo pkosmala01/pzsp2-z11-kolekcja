@@ -1,34 +1,19 @@
-import axios from "axios";
-import { useQuery } from "react-query";
-import { URL } from "../../untils/endpoint";
 import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Grid,
   Typography,
 } from "@mui/material";
 import * as Styled from "./ItemsGrid.styles"
 import { Link } from "react-router-dom";
+import { useCollectionItems } from "../../hook";
 
-const ItemsGrid = (props: { param: string | undefined }) => {
-  const { data: itemsData, isLoading: itemsLoading } = useQuery(
-    "collectionItems",
-    async () => {
-      const responce = await axios.get(
-        URL + `collections/${props.param}/items`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
-      return responce.data;
-    }
-  );
+const ItemsGrid = (props: { param: string}) => {
 
-  const items = itemsLoading ? null : itemsData;
+  const { data, isLoading, isFetching } = useCollectionItems(+props.param);
+
+  const items = isLoading || isFetching ? null : data;
 
   return (
     <Grid container justifyContent={"center"} paddingBottom={"5rem"}>

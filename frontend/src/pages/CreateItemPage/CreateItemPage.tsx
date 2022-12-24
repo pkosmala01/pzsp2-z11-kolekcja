@@ -1,11 +1,10 @@
 import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import usePostData from "../../hook/usePostData";
-
 import * as Styled from "./CreateItemPage.styles"
-import { URL } from "../../untils/endpoint";
 import { TextInput, TitleBar } from "../../components";
+import { useCreateItem } from "../../hook";
+import { IItem } from "../../models";
 
 const CreateItemPage = () => {
   const params = useParams();
@@ -18,32 +17,35 @@ const CreateItemPage = () => {
   const [category, setCategory] = useState<string>("");
   const navigate = useNavigate();
 
-  const { isLoading, isError, mutate } = usePostData(URL + "items", () => {
+  const { mutate } = useCreateItem({
+    name,
+    description,
+    condition,
+    location,
+    price,
+    category,
+    collection_id: +collectionId!,
+    properties: {},
+  } as IItem, () => {
     navigate(-1);
-  });
+  })
 
   const createItemHandler = () => {
+    console.log(name);
+    console.log(description);
+
     if (name === "" || description === "") {
       alert("Fields are required");
       return;
     }
-    mutate({
-      name,
-      description,
-      condition,
-      location,
-      price,
-      category,
-      collection_id: collectionId,
-      properties: {},
-    });
+    mutate();
   };
 
   return (
     <Styled.GridOuterContainer container >
       <Grid container justifyContent={"center"}>
         <Grid item xs={10} md={10} margin={"1rem"}>
-          <TitleBar param={collectionId} />
+          <TitleBar collectionId={collectionId!} />
         </Grid>
       </Grid>
       <Styled.GridItem item xs={8} md={8}>

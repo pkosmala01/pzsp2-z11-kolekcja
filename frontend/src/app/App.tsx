@@ -9,7 +9,7 @@ import {
   CollectionsListPage,
   CreateItemPage,
   ItemPage,
-  ItemsListPage,
+  CollectionItemsPage,
   LoginPage,
   NotFoundPage
 } from "../pages";
@@ -36,7 +36,7 @@ const App = () => {
       <Route path="login" element={<LoginPage />} />
       <Route path="/" element={<Layout routes={routes} />}>
         <Route path="" element={ <RequireAuth><CollectionsListPage /></RequireAuth>}/>
-        <Route path="collection/:collectionId" element={<RequireAuth><ItemsListPage /></RequireAuth>}/>
+        <Route path="collection/:collectionId" element={<RequireAuth><CollectionItemsPage /></RequireAuth>}/>
         <Route path="collection/:collectionId/items/:itemId" element={<RequireAuth><ItemPage /></RequireAuth>}/>
         <Route path="createItem/:collectionId" element={<RequireAuth><CreateItemPage /></RequireAuth>}/>
         <Route path="*" element={<NotFoundPage/>}/>
