@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import CollectionsListPage from "../pages/CollectionsListPage/CollectionsListPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import ItemPage from "../pages/ItemPage/ItemPage";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 
 import isLogged from "../untils/isLogged";
 import "../styles/styles.css";
@@ -35,9 +36,8 @@ const App = () => {
         <Route path="collection/:collectionId" element={<RequireAuth><CollectionItems /></RequireAuth>}/>
         <Route path="collection/:collectionId/items/:itemId" element={<RequireAuth><ItemPage /></RequireAuth>}/>
         <Route path="createItem/:collectionId" element={<RequireAuth><CreateItem /></RequireAuth>}/>
+        <Route path="*" element={<NotFoundPage/>}/>
       </Route>
-      <Route path="*" element={<RequireAuth><CollectionsListPage /></RequireAuth>}/>
-      <Route path="" element={<RequireAuth><CollectionsListPage /></RequireAuth>}/>
     </Routes>
   );
 };
