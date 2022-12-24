@@ -1,10 +1,10 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-// import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ButtonSx } from "../../components/CollectionItems/CollectionItems.styles";
 import TitleBar from "../../components/TitleBar/TitleBar";
 import usePostData from "../../hook/usePostData";
+
+import * as Styled from "./CreateItem.styles"
 import theme from "../../styles/theme";
 import { URL } from "../../untils/endpoint";
 
@@ -149,13 +149,12 @@ const CreateItem = () => {
             Creating
           </LoadingButton>
         ) : ( */}
-          <Button
-            sx={ButtonSx}
+          <Styled.Button
             fullWidth
             variant="contained"
             onClick={createItemHandler}>
             Create
-          </Button>
+          </Styled.Button>
         {/* )} */}
       </Grid>
     </Grid>

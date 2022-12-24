@@ -1,8 +1,8 @@
-import { Button, Box, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import ItemsGrid from "../ItemsGrid/ItemsGrid";
 import TitleBar from "../TitleBar/TitleBar";
-import { ButtonSx } from "./CollectionItems.styles";
+import * as Styled from "./CollectionItems.styles";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -20,17 +20,17 @@ const CollectionItems = () => {
         <Grid item xs={7} md={5}></Grid>
         <Grid item xs={2} md={2}>
           <Link to={`/createItem/${collectionId}`}>
-            <Button sx={ButtonSx} variant="contained">
+            <Styled.Button variant="contained">
                 <Box sx={{display: {xs: "none", sm: "block"}}} >Create new item</Box>
                 <AddIcon sx={{display: {xs: "block", sm: "none"}}} fontSize="large"/>
-            </Button>
+            </Styled.Button>
           </Link>
         </Grid>
         <Grid item xs={2} md={2}>
-          <Button sx={ButtonSx} variant="contained">
+          <Styled.Button variant="contained">
               <Box sx={{display: {xs: "none", sm: "block"}}} >Manage users</Box>
               <ManageAccountsIcon sx={{display: {xs: "block", sm: "none"}}} fontSize="large"/>
-          </Button>
+          </Styled.Button>
         </Grid>
         <Grid item xs={1} md={1}></Grid>
       </Grid>

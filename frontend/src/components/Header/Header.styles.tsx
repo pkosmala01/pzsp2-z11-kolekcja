@@ -1,5 +1,6 @@
 import { styled } from "@mui/system";
 import sx from "@mui/system/sx";
+import BtnSecondary from "../BtnSecondary/BtnSecondary";
 import {
     Grid,
     Box as BoxMui,
@@ -46,17 +47,10 @@ export const BoxTypography = styled(BoxMui)(() => ({
     paddingLeft: '2vw',
 }));
 
-export const Button = styled(ButtonMui)(() => ({
+export const Button = styled(BtnSecondary)(() => ({
     width: '7vw',
     height: '5vh',
     marginRight: '2vw',
-    backgroundColor: theme.btn,
-    color: theme.fontLight,
-    borderRadius: "30px",
-    '&:hover': {
-        background: theme.bgGrey,
-        color: theme.fontDark,
-     },
 }));
 
 export const LoginTypography = styled(TypographyMui)(sx({

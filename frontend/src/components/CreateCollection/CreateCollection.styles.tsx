@@ -1,6 +1,7 @@
 import { Box, Button, FormControl,
   CircularProgress as CircularProgressMui,
 } from "@mui/material";
+import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import { styled } from "@mui/system";
 import sx from "@mui/system/sx";
 import theme from "../../styles/theme";
@@ -37,16 +38,11 @@ export const CreateBannerTypography = styled(Box)(
   })
 );
 
-export const SubmitButton = styled(Button)(sx({
+export const SubmitButton = styled(BtnPrimary)(sx({
   marginTop: "1.25rem",
-  backgroundColor: theme.btn,
   height: "5vh",
   width: { xs: "25vw", sm: "6vw"},
   borderRadius: "30px",
-  color: theme.white,
-  '&:hover': {
-    background: theme.primary,
- },
 }));
 
 export const BgBlur = styled(Box)(sx({
@@ -77,19 +73,10 @@ export const CreateBtnWrapper = styled(Box)(sx({
   marginRight: { xs: "0.5rem", sm: "1.5rem" },
 }))
 
-export const CreateCollectionBtn = styled(Button)(sx({
+export const CreateCollectionBtn = styled(BtnPrimary)(sx({
   display: "flex",
-  backgroundColor: theme.btn,
   padding: "1rem",
   borderRadius: "30px",
-  color: theme.white,
-  '&:hover': {
-      background: theme.primary,
-      // background: theme.bgGrey,
-      // border: `3px ${theme.primary} solid`,
-      // fontWeight: 700,
-      // color: theme.primary,
-   },
 }));
 
 export const CreateCollectionFab = styled(Box)(sx({

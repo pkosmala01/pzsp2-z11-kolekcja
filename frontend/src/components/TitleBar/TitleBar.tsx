@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useGetData from "../../hook/useGetData";
-import { NavigateBack, TitleBarWrapper, TitleDescription, TitleName } from "./TitleBar.tyles";
+import { NavigateBack, TitleBarWrapper, TitleDescription, TitleName } from "./TitleBar.styles";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const TitleBar = (props: { param: string | undefined }) => {
