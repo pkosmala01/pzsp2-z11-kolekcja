@@ -1,7 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import sx from "@mui/system/sx";
 import theme from "../../styles/theme";
+
+export const GridContainer = styled(Grid)(sx({
+  justifyContent: "center",
+}));
+
+export const GridItem = styled(Grid)(sx({
+  margin: "1rem",
+}));
 
 export const TitleBarWrapper = styled(Box)(sx({
   height: "5rem",

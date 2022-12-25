@@ -29,7 +29,7 @@ export const ImageSkeleton = styled(Skeleton )(sx({
   transform: "none"
 }));
 
-export const TitleSkeleton = styled(Skeleton )(sx({
+export const TitleSkeleton = styled(Skeleton)(sx({
   width: "100%",
   transform: "none",
   fontSize: '4vh',
@@ -37,7 +37,7 @@ export const TitleSkeleton = styled(Skeleton )(sx({
   maxHeight: "6vh",
 }));
 
-export const TextSkeleton = styled(Skeleton )(sx({
+export const TextSkeleton = styled(Skeleton)(sx({
   width: "100%",
   transform: "none",
   fontSize: '2vh',

@@ -1,10 +1,10 @@
-import { Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as Styled from "./CreateItemPage.styles"
 import { TextInput, TitleBar } from "../../components";
 import { useCreateItem } from "../../hook";
-import { IItem } from "../../models";
+import { IItemBase } from "../../models";
 
 const CreateItemPage = () => {
   const params = useParams();
@@ -24,9 +24,9 @@ const CreateItemPage = () => {
     location,
     price,
     category,
-    collection_id: +collectionId!,
+    collectionId: +collectionId!,
     properties: {},
-  } as IItem, () => {
+  } as IItemBase, () => {
     navigate(-1);
   })
 
@@ -43,11 +43,7 @@ const CreateItemPage = () => {
 
   return (
     <Styled.GridOuterContainer container >
-      <Grid container justifyContent={"center"}>
-        <Grid item xs={10} md={10} margin={"1rem"}>
-          <TitleBar collectionId={collectionId!} />
-        </Grid>
-      </Grid>
+      <TitleBar collectionId={collectionId!} />
       <Styled.GridItem item xs={8} md={8}>
         <Typography variant="h4" component="h4" margin={"1rem"} display={"block"}>
           Create new item

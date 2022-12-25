@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { NavigateBack, TitleBarWrapper, TitleDescription, TitleName } from "./TitleBar.styles";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useCollection } from "../../hook";
+import * as Styled from "./TitleBar.styles";
 
 const TitleBar = (props: { collectionId: string }) => {
   const navigate = useNavigate();
@@ -16,11 +16,15 @@ const TitleBar = (props: { collectionId: string }) => {
   const description = isLoading ? "Loading..." : data.description;
 
   return (
-    <TitleBarWrapper>
-      <NavigateBack onClick={navigateBackHandler}><ArrowBackIosNewIcon/></NavigateBack>
-      <TitleName>{title}</TitleName>
-	    <TitleDescription>{description}</TitleDescription>
-    </TitleBarWrapper>
+    <Styled.GridContainer container>
+      <Styled.GridItem item xs={10} md={10}>
+        <Styled.TitleBarWrapper>
+          <Styled.NavigateBack onClick={navigateBackHandler}><ArrowBackIosNewIcon/></Styled.NavigateBack>
+          <Styled.TitleName>{title}</Styled.TitleName>
+          <Styled.TitleDescription>{description}</Styled.TitleDescription>
+        </Styled.TitleBarWrapper>
+      </Styled.GridItem>
+    </Styled.GridContainer>
   );
 };
 

@@ -1,54 +1,38 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Grid } from "@mui/material";
 import * as Styled from "./ItemsGrid.styles"
-import { Link } from "react-router-dom";
 import { useCollectionItems } from "../../hook";
+import { ItemCard } from "../ItemCard";
+import { IItemPlainData } from "../../models";
+import ItemCardSkeleton from "../ItemCardSkeleton";
 
-const ItemsGrid = (props: { param: string}) => {
+type ItemsGridProps = {
+  collectionId: number,
+}
 
-  const { data, isLoading, isFetching } = useCollectionItems(+props.param);
+const ItemsGrid: React.FC<ItemsGridProps> = ({collectionId}) => {
 
-  const items = isLoading || isFetching ? null : data;
+  const { data, isLoading, isFetching } = useCollectionItems(collectionId);
 
   return (
-    <Grid container justifyContent={"center"} paddingBottom={"5rem"}>
-      <Grid item xs={2} md={3}></Grid>
-      <Grid container item xs={8} md={8} spacing={2}>
-        {items &&
-          items.map((e: any, i:any) => {
-            return (
-              <Grid item xs={12} md={3} key={i}>
-                <Link
-                  to={`/collection/${props.param}/items/${e.item_id}`}
-                  key={e.item_id}>
-                  <Card>
-                    <CardActionArea>
-                      {typeof e.photo === 'undefined'
-                        ? <Styled.DefaultImage></Styled.DefaultImage>
-                        : <Styled.CartMediaS component='img' image={e.photo} alt={e.name} />
-                      }
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {e.name}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {e.description}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Link>
-              </Grid>
-            );
-          })}
-      </Grid>
-      <Grid item xs={2} md={1}></Grid>
-    </Grid>
+    <Styled.GridContainer container spacing={2} >
+      {isLoading || isFetching
+        ? [...Array(4)].map(() => {
+          return (
+            <Grid item >
+              <ItemCardSkeleton />
+            </Grid>
+          )
+        })
+        : data!.map((item: IItemPlainData, index: number) => {
+          return (
+            <Grid item>
+              <ItemCard item={item} />
+            </Grid>
+
+          )
+        })
+      }
+    </Styled.GridContainer>
   );
 };
 
