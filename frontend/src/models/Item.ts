@@ -5,12 +5,12 @@ export type IItemBase = {
   condition: string,
   location: string,
   price: number,
-  collectionId: number
+  collection_id: number
   properties: any
 }
 
 export type IItemPlainData = IItemBase & {
-  itemId: number,
+  item_id: number,
 }
 
 export type IItemMediaData = {

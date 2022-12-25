@@ -21,6 +21,12 @@ export const Paper = styled(PaperMui)(sx({
 export const ImageWrapper = styled(Box)(sx({
   width: "100%",
   height: {xs: "30vh", sm: "50vh"},
+  justifyContent: "center",
+  display: "flex",
+}));
+
+export const Image = styled('img')(sx({
+  height: "100%",
 }));
 
 export const ImageSkeleton = styled(Skeleton )(sx({
@@ -67,4 +73,3 @@ export const TypographyDesc = styled(Typography)(sx({
   fontWeight: 500,
   maxHeight: "6vh",
 }));
-

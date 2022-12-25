@@ -26,7 +26,7 @@ const ItemsGrid: React.FC<ItemsGridProps> = ({collectionId}) => {
         : data!.map((item: IItemPlainData, index: number) => {
           return (
             <Grid item>
-              <ItemCard item={item} />
+              <ItemCard item={item} collectionId={collectionId} />
             </Grid>
 
           )

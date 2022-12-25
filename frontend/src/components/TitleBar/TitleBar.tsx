@@ -12,8 +12,8 @@ const TitleBar = (props: { collectionId: string }) => {
 
   const { data, isLoading } = useCollection(+props.collectionId);
 
-  const title = isLoading ? "Loading..." : data.name;
-  const description = isLoading ? "Loading..." : data.description;
+  const title = isLoading ? "Loading..." : data!.name;
+  const description = isLoading ? "Loading..." : data!.description;
 
   return (
     <Styled.GridContainer container>

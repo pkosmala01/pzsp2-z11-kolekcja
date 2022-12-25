@@ -24,7 +24,7 @@ const CreateItemPage = () => {
     location,
     price,
     category,
-    collectionId: +collectionId!,
+    collection_id: +collectionId!,
     properties: {},
   } as IItemBase, () => {
     navigate(-1);

@@ -5,6 +5,7 @@ import useItem from "./item/useItem";
 import useLogin from "./auth/useLogin";
 import useCollections from "./collection/useCollections";
 import useCollection from "./collection/useCollection";
+import useItemImage from "./item/useItemImage";
 
 export {
   useLogin,
@@ -14,4 +15,5 @@ export {
   useCollectionItems,
   useCreateItem,
   useItem,
+  useItemImage,
 };

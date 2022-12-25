@@ -19,7 +19,7 @@ const CollectionsListPage = () => {
           </Styled.SpinnerBox>
           :
           <Styled.List>
-              {data.map((e: any, i: any) => {
+              {data!.map((e: any, i: any) => {
                 return (
                   <Link to={`/collection/${e.collection_id}`} key={i}>
                     <Styled.ListItem>

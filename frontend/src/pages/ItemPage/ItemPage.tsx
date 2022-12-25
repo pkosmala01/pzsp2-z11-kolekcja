@@ -2,46 +2,40 @@ import { Grid, Divider } from "@mui/material/";
 import { useParams } from "react-router-dom";
 import * as Styled from "./ItemPage.styles";
 import TitleBar from "../../components/TitleBar/TitleBar";
-import { useItem } from "../../hook";
+import { useItem, useItemImage } from "../../hook";
 
 const ItemPage = () => {
   const { collectionId, itemId }  = useParams();
 
-  const { data, isLoading, isFetching } = useItem(+itemId!);
+  const plainData = useItem(+itemId!);
+  const image = useItemImage(+itemId!);
 
   return (
     <Styled.GridContainer container>
+      <TitleBar collectionId={collectionId!} />
       <Grid item xs={2} sm={3} ></Grid>
       <Grid item xs={8} sm={6} >
-        <TitleBar collectionId={collectionId!} />
         <Styled.Paper>
           <Styled.ImageWrapper>
-            {isLoading || isFetching
+            {image.isLoading || image.isFetching
               ? <Styled.ImageSkeleton variant="rounded"></Styled.ImageSkeleton>
-              : typeof data.photo === 'undefined'
-                ?
-                <Styled.DefaultImage />
-                :
-                <>
-                {/* convert BLOB to img elem
-                    var image = new Image();
-                    image.src = URL.createObjectURL(blob);
-                    document.body.appendChild(image); */}
-                </>
+              : image.data === null
+                ? <Styled.DefaultImage />
+                : <Styled.Image src={image.data} alt={plainData.isLoading || plainData.isFetching ? plainData.data?.name : "img"} />
               }
           </Styled.ImageWrapper>
         </Styled.Paper>
         <Styled.Paper>
-          {isLoading || isFetching
+          {plainData.isLoading || plainData.isFetching
             ?  <Styled.TitleSkeleton></Styled.TitleSkeleton>
-            : <Styled.TypographyTitle>{data.name}</Styled.TypographyTitle>
+            : <Styled.TypographyTitle>{plainData.data!.name}</Styled.TypographyTitle>
           }
           <Styled.TypographySubTitle>
             <Divider textAlign={"left"}>description</Divider >
           </Styled.TypographySubTitle>
-          {isLoading || isFetching
+          {plainData.isLoading || plainData.isFetching
             ?  <Styled.TextSkeleton/>
-            : <Styled.TypographyDesc>{data.description}</Styled.TypographyDesc>
+            : <Styled.TypographyDesc>{plainData.data!.description}</Styled.TypographyDesc>
           }
         </Styled.Paper>
       </Grid>
