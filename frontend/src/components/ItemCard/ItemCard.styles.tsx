@@ -12,11 +12,11 @@ export const CardWrapper = styled(Card)(sx({
 
 export const ImageWrapper = styled(Box)(sx({
   display: "flex",
-  padding: "0.5rem",
   justifyContent: "center",
   alignItems: "center",
-  width: "30vh",
-  height: "30vh",
+  padding: "1rem",
+  width: "25vh",
+  height: "25vh",
 }));
 
 export const DefaultImage = styled(CropOriginalIcon)(sx({

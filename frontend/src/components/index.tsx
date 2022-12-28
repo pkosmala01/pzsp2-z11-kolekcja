@@ -10,6 +10,7 @@ import CircularProgress from "./CircularProgress";
 import { ItemCard, ItemCardProps } from "./ItemCard";
 import CollectionToolBar from "./CollectionToolBar";
 import ItemCardSkeleton from "./ItemCardSkeleton";
+import ImageSlider from "./ImageSlider";
 
 
 export {
@@ -26,4 +27,5 @@ export {
   ItemCard,
   type ItemCardProps,
   ItemCardSkeleton,
+  ImageSlider,
 }

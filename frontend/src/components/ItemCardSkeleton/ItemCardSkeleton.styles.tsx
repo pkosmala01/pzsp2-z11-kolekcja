@@ -9,8 +9,12 @@ export const CardWrapper = styled(Card)(sx({
 }));
 
 export const ImageWrapper = styled(Box)(sx({
-  width: "30vh",
-  height: "30vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "1rem",
+  width: "25vh",
+  height: "25vh",
 }));
 
 export const CartMediaS = styled(CardMedia)<CardMediaProps>({

@@ -6,7 +6,7 @@ type CollectionToolBarProps = {
   collectionId: number
 }
 
-const CollectionToolBar: React.FC<CollectionToolBarProps> = (collectionId) => {
+const CollectionToolBar: React.FC<CollectionToolBarProps> = ({collectionId}) => {
   return (
     <Styled.GridContainer container justifyContent={"right"} spacing={{xs:'2', sm: '10'}}>
     <Grid item xs={7} md={5}></Grid>

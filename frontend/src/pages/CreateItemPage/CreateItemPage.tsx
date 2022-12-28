@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as Styled from "./CreateItemPage.styles"
-import { TextInput, TitleBar } from "../../components";
+import { ImageSlider, TextInput, TitleBar } from "../../components";
 import { useCreateItem } from "../../hook";
 import { IItemBase } from "../../models";
 
@@ -16,6 +16,7 @@ const CreateItemPage = () => {
   const [price, setPrice] = useState<number>(0);
   const [category, setCategory] = useState<string>("");
   const navigate = useNavigate();
+
 
   const { mutate } = useCreateItem({
     name,
@@ -43,11 +44,13 @@ const CreateItemPage = () => {
 
   return (
     <Styled.GridOuterContainer container >
+
       <TitleBar collectionId={collectionId!} />
-      <Styled.GridItem item xs={8} md={8}>
+      <Styled.GridItem item xs={8} sm={6}>
         <Typography variant="h4" component="h4" margin={"1rem"} display={"block"}>
           Create new item
         </Typography>
+        <ImageSlider/>
         <TextInput label="Name" required onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)} />
         <TextInput label="Description" required onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)} />
         <TextInput label="Condition" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCondition(e.target.value)} />
