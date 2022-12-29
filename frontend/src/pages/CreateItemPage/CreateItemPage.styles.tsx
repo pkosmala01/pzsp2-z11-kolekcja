@@ -18,10 +18,6 @@ export const GridItem = styled(Grid)(sx({
   paddingBottom: "5rem"
 }));
 
-export const UploadButton = styled(BtnPrimary)(sx({
-  margin: "1rem",
-})) as typeof BtnPrimary;
-
 export const SubmitButtonWrapper = styled(Box)(sx({
   display: "flex",
   margin: "2rem",

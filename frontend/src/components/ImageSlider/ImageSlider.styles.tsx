@@ -15,7 +15,7 @@ export const GridContainer = styled(Grid)(sx({
 export const UploadBtnTypography = styled(Typography)(sx({
 }))
 
-export const ItemWrapper = styled('div')(sx({
+export const ItemWrapper = styled(Box)(sx({
   position: "relative",
   margin: "0.3rem .3rem",
   padding: "0.5rem",

@@ -44,7 +44,6 @@ const CreateItemPage = () => {
 
   return (
     <Styled.GridOuterContainer container >
-
       <TitleBar collectionId={collectionId!} />
       <Styled.GridItem item xs={8} sm={6}>
         <Typography variant="h4" component="h4" margin={"1rem"} display={"block"}>
@@ -57,10 +56,6 @@ const CreateItemPage = () => {
         <TextInput label="Location" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocation(e.target.value)} />
         <TextInput label="Price" type="number" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(+e.target.value)} />
         <TextInput label="Category" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCategory(e.target.value)} />
-        <Styled.UploadButton variant="contained" component="label"  >
-          Upload
-          <input hidden accept="image/*" multiple type="file" />
-        </Styled.UploadButton>
         <Styled.SubmitButtonWrapper>
           <Styled.SubmitButton fullWidth variant="contained" onClick={createItemHandler}>
               Create

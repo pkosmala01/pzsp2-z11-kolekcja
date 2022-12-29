@@ -60,6 +60,9 @@ const ImageSlider: React.FC = () => {
     setSliderItems(si => {
       return si.filter((item) => item.hash !== itemHash)
     });
+    if(currentIndex === sliderItems.length - 1){
+      handlePrev();
+    }
   }
 
   const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,6 +115,16 @@ const ImageSlider: React.FC = () => {
     removeItemByName(itemHash!);
   }
 
+  const imageClickHandler = (e: React.MouseEvent<HTMLElement>) => {
+    const index = e.currentTarget.getAttribute('item-index');
+    console.log(index!);
+
+    setCurrentIndex(_ => +index!);
+    console.log(-(+index! * 100) + 100);
+
+    setTranslateValue(_ => -(+index! * 100));
+  }
+
   return (
     <>
 
@@ -126,9 +139,9 @@ const ImageSlider: React.FC = () => {
       </Styled.SliderRightButton>
       <Styled.SliderWrapper>
         <Styled.ImageWrapper sx={{transform: `translateX(${translateValue}%)`}}>
-        {sliderItems.map((item, i) => {
+        {sliderItems.map((item) => {
           return (
-            <Styled.ImageWrapper key={i}>
+            <Styled.ImageWrapper key={item.hash}>
               <Styled.Image src={item.image} alt={item.name} />
             </Styled.ImageWrapper>
           )
@@ -141,14 +154,11 @@ const ImageSlider: React.FC = () => {
     : <></> // TODO Drag & Drop if no images
 
     }
-
-
-
     <Styled.GridContainer container>
-      {sliderItems.map((item, i) => {
+      {sliderItems.map((item, index) => {
         return item.status === 'uploading'
         ? (
-          <Styled.ItemWrapper key={i}>
+          <Styled.ItemWrapper key={item.hash}>
             <Styled.HoverLayout>
               <Styled.DeleteIcon onClick={handleRemoveItem} {...{"img-hash": item.hash}}/>
             </Styled.HoverLayout>
@@ -157,7 +167,7 @@ const ImageSlider: React.FC = () => {
         )
         : item.status === 'ok'
         ? (
-          <Styled.ItemWrapper key={i}>
+          <Styled.ItemWrapper key={item.hash} onClick={imageClickHandler} {...{"item-index": index}}>
             <Styled.HoverLayout>
               <Styled.DeleteIcon onClick={handleRemoveItem} {...{"img-hash": item.hash}}/>
             </Styled.HoverLayout>
@@ -165,7 +175,7 @@ const ImageSlider: React.FC = () => {
           </Styled.ItemWrapper>
         )
         : (
-          <Styled.ErrorItemWrapper key={i}>
+          <Styled.ErrorItemWrapper key={item.hash}>
             <Styled.ErrorIcon color="error" onClick={handleRemoveItem} {...{"img-hash": item.hash}}/>
           </Styled.ErrorItemWrapper>
         )
