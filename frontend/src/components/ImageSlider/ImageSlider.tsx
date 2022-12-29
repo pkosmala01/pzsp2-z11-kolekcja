@@ -21,6 +21,7 @@ const ImageSlider: React.FC = () => {
   const [sliderItems, setSliderItems] = useState<ISliderItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateValue, setTranslateValue] = useState(0);
+  const [touchPosition, setTouchPosition] = useState<number | null>(null)
 
   const handlePrev = () => {
     if (currentIndex === 0) {
@@ -101,7 +102,6 @@ const ImageSlider: React.FC = () => {
           setStatus(hash, "ok");
         }
         catch(e){
-          console.log(e);
           setStatus(hash, "error");
         }
       });
@@ -117,18 +117,35 @@ const ImageSlider: React.FC = () => {
 
   const imageClickHandler = (e: React.MouseEvent<HTMLElement>) => {
     const index = e.currentTarget.getAttribute('item-index');
-    console.log(index!);
 
     setCurrentIndex(_ => +index!);
-    console.log(-(+index! * 100) + 100);
-
     setTranslateValue(_ => -(+index! * 100));
+  }
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLElement>) => {
+    const touchDown = e.touches[0].clientX
+    setTouchPosition(touchDown)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLElement>) => {
+    const touchDown = touchPosition
+
+    if(touchDown === null) {
+      return;
+    }
+
+    const currentTouch = e.touches[0].clientX
+    const diff = touchDown - currentTouch
+
+    if (diff > 5) handleNext();
+    if (diff < -5) handlePrev();
+    setTouchPosition(null)
   }
 
   return (
     <>
 
-    {sliderItems.length > 0
+    {sliderItems.filter(item => item.status === 'ok').length > 0
     ? (
     <Styled.SliderContainer>
       <Styled.SliderLeftButton onClick={handlePrev} >
@@ -138,8 +155,8 @@ const ImageSlider: React.FC = () => {
         <ChevronRight />
       </Styled.SliderRightButton>
       <Styled.SliderWrapper>
-        <Styled.ImageWrapper sx={{transform: `translateX(${translateValue}%)`}}>
-        {sliderItems.map((item) => {
+        <Styled.ImageWrapper sx={{transform: `translateX(${translateValue}%)`}} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
+        {sliderItems.filter(item => item.status === 'ok').map((item) => {
           return (
             <Styled.ImageWrapper key={item.hash}>
               <Styled.Image src={item.image} alt={item.name} />
