@@ -73,6 +73,7 @@ class ItemRepository:
         ).one()
         item.photo = image
         session.commit()
+
     @staticmethod
     def edit_item(item_dict: Dict[str, Any]):
         raise NotImplementedError
