@@ -8,7 +8,7 @@ from passlib.context import CryptContext
 from pydantic import BaseModel
 
 from repository.user import UserRepository, User
-from repository.permission import AssignedCollections, PermissionRepository
+from repository.permission import PermissionRepository
 
 # to get a string like this run:
 # openssl rand -hex 32

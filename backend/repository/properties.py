@@ -1,12 +1,10 @@
-from typing import List
-
 from repository.database import get_session
 from repository.model import PropertyDefinitionTable
 
 
 class PropertiesRepository:
     @staticmethod
-    def list_properties() -> List[PropertyDefinitionTable]:
+    def list_properties() -> list[PropertyDefinitionTable]:
         serialize_rules = ('-property_value',)
         session = get_session()
         results = session.query(PropertyDefinitionTable).all()

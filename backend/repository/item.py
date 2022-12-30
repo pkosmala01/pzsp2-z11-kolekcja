@@ -1,4 +1,4 @@
-from typing import Optional, List, Dict, Any
+from typing import Optional, Any
 
 from repository.database import get_session, OrmBaseModel
 from repository.model import ItemTable, PropertyValueTable
@@ -10,7 +10,7 @@ class Item(OrmBaseModel):
     name: str
     description: Optional[str]
     photo: Optional[bytes]
-    properties: List
+    properties: list
 
 
 class ItemRepository:
@@ -33,7 +33,7 @@ class ItemRepository:
         return result.photo
 
     @staticmethod
-    def get_items_for_collection_id(collection_id: int) -> List[Item]:
+    def get_items_for_collection_id(collection_id: int) -> list[Item]:
         session = get_session()
         results = session.query(ItemTable).filter(
             ItemTable.collection_id == collection_id
@@ -41,7 +41,7 @@ class ItemRepository:
         return [result.to_dict() for result in results]
 
     @staticmethod
-    def create_item(item_dict: Dict[str, Any], properties: Dict[str, Dict[int, str]]):
+    def create_item(item_dict: dict[str, Any], properties: dict[str, dict[int, str]]):
         item_object = ItemTable(**item_dict)
         print(properties)
         session = get_session()
@@ -75,5 +75,5 @@ class ItemRepository:
         session.commit()
 
     @staticmethod
-    def edit_item(item_dict: Dict[str, Any]):
+    def edit_item(item_dict: dict[str, Any]):
         raise NotImplementedError

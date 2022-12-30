@@ -1,4 +1,4 @@
-from typing import Optional, Dict
+from typing import Optional
 
 from fastapi import HTTPException, APIRouter, Depends, UploadFile
 from fastapi.security import OAuth2PasswordBearer
@@ -17,7 +17,7 @@ class CreateItemRequest(BaseModel):
     collection_id: int
     description: Optional[str]
     photo: Optional[bytes]
-    properties: Dict[int, str]
+    properties: dict[int, str]
 
 
 @router.get(

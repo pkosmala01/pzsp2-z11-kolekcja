@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from fastapi import HTTPException, APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm.exc import NoResultFound
@@ -16,7 +14,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
     tags=['properties'],
     responses={404: {'detail': 'No properties'}}
 )
-async def list_properties(token: str = Depends(oauth2_scheme)) -> List[PropertyDefinitionTable]:
+async def list_properties(token: str = Depends(oauth2_scheme)) -> list[PropertyDefinitionTable]:
     try:
         return PropertiesRepository.list_properties()
     except NoResultFound:

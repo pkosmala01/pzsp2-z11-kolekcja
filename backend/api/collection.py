@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import HTTPException, APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -47,7 +47,7 @@ async def get_collections_for_user(user_id: int, token: str = Depends(oauth2_sch
     tags=['collections'],
     responses={404: {'detail': 'Collection not found'}}
 )
-async def get_collection_items(collection_id: int, token: str = Depends(oauth2_scheme)) -> List[Item]:
+async def get_collection_items(collection_id: int, token: str = Depends(oauth2_scheme)) -> list[Item]:
     try:
         return ItemRepository.get_items_for_collection_id(collection_id=collection_id)
     except NoResultFound:
@@ -59,7 +59,7 @@ async def get_collection_items(collection_id: int, token: str = Depends(oauth2_s
     tags=['collections'],
     responses={404: {'detail': 'No collections'}}
 )
-async def list_collections(token: str = Depends(oauth2_scheme)) -> List[Collection]:
+async def list_collections(token: str = Depends(oauth2_scheme)) -> list[Collection]:
     try:
         user_id = int(decode_access_token(token).sub)
         return CollectionRepository.list_collections_for_user(user_id=user_id)

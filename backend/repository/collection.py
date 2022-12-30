@@ -1,4 +1,4 @@
-from typing import Optional, List, Dict, Any
+from typing import Optional, Any
 
 from repository.database import get_session, OrmBaseModel
 from repository.model import CollectionTable, CollectionUserTable
@@ -34,14 +34,14 @@ class CollectionRepository:
         return [result.to_dict(rules=serialize_rules) for result in results]
 
     @staticmethod
-    def list_collections() -> List[Collection]:
+    def list_collections() -> list[Collection]:
         serialize_rules = ('-users', '-items',)
         session = get_session()
         results = session.query(CollectionTable).all()
         return [result.to_dict(rules=serialize_rules) for result in results]
 
     @staticmethod
-    def create_collection(collection_dict: Dict[str, Any], user_id: int):
+    def create_collection(collection_dict: dict[str, Any], user_id: int):
         session = get_session()
         collection_object = CollectionTable(**collection_dict)
         session.add(collection_object)
