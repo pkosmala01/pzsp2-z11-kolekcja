@@ -41,7 +41,7 @@ class CollectionRepository:
         return [result.to_dict(rules=serialize_rules) for result in results]
 
     @staticmethod
-    def create_collection(collection_dict: dict[str, Any], user_id: int):
+    def create_collection(collection_dict: dict[str, Any], user_id: int) -> int:
         session = get_session()
         collection_object = CollectionTable(**collection_dict)
         session.add(collection_object)
@@ -54,10 +54,14 @@ class CollectionRepository:
         )
         session.add(collection_user)
         session.commit()
+        return collection_object.collection_id
 
     @staticmethod
     def delete_collection(collection_id: int):
         session = get_session()
+        session.query(CollectionUserTable).filter(
+            CollectionUserTable.collection_id == collection_id
+        ).delete()
         session.query(CollectionTable).filter(
             CollectionTable.collection_id == collection_id
         ).delete()

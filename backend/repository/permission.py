@@ -35,3 +35,23 @@ class PermissionRepository():
             admin_collections=admin_collections,
             su_collections=su_collections
         )
+
+    def assign_user(self, user_id: int, collection_id: int, permission: str) -> None:
+        session = get_session()
+        permission_mapping = self.get_permission_ids()
+        collection_user = session.query(
+            CollectionUserTable
+        ).filter(
+            CollectionUserTable.user_id == user_id,
+            CollectionUserTable.collection_id == collection_id
+        ).first()
+        if collection_user is None:
+            collection_user = CollectionUserTable(
+                collection_id=collection_id,
+                user_id=user_id,
+                permission_level=permission_mapping[permission]
+            )
+            session.add(collection_user)
+        else:
+            collection_user.permission_level = permission_mapping[permission]
+        session.commit()

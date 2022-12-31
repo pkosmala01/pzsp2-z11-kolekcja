@@ -70,10 +70,10 @@ async def attach_image_to_item(file: UploadFile, item_id: int, token: str = Depe
     tags=['items'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def create_item(item_with_properties: CreateItemRequest, token: str = Depends(oauth2_scheme)) -> None:
+async def create_item(item_with_properties: CreateItemRequest, token: str = Depends(oauth2_scheme)) -> int:
     item = item_with_properties.dict(exclude={'properties'})
     properties = item_with_properties.dict(include={'properties'})
-    ItemRepository.create_item(item, properties)
+    return ItemRepository.create_item(item, properties)
 
 
 @router.delete(

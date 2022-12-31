@@ -41,7 +41,7 @@ class ItemRepository:
         return [result.to_dict() for result in results]
 
     @staticmethod
-    def create_item(item_dict: dict[str, Any], properties: dict[str, dict[int, str]]):
+    def create_item(item_dict: dict[str, Any], properties: dict[str, dict[int, str]]) -> int:
         item_object = ItemTable(**item_dict)
         print(properties)
         session = get_session()
@@ -56,6 +56,7 @@ class ItemRepository:
                 )
             session.add(property_value)
         session.commit()
+        return item_object.item_id
 
     @staticmethod
     def delete_item(item_id: int):

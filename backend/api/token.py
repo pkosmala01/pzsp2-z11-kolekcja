@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import Union
+from typing import Union, Optional
 
 from fastapi import Depends, APIRouter, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -26,9 +26,6 @@ class TokenData(BaseModel):
     sub: str
     email: str
     exp: datetime
-    user_collections: list[int]
-    admin_collections: list[int]
-    su_collections: list[int]
 
 
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -38,7 +35,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 router = APIRouter()
 
 
-def verify_password(plain_password: str, password_hash: str):
+def verify_password(plain_password: str, password_hash: str) -> bool:
     return pwd_context.verify(plain_password, password_hash)
 
 
@@ -51,7 +48,7 @@ def authenticate_user(email: str, password: str) -> User:
     return user
 
 
-def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
+def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None) -> str:
     to_encode = data.copy()
 
     if expires_delta:
@@ -78,16 +75,35 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
             headers={'WWW-Authenticate': 'Bearer'},
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    permission_repo = PermissionRepository()
-    assigned_collections = permission_repo.get_assigned_collections(user.user_id)
     access_token = create_access_token(
         data={
             'sub': str(user.user_id),
             'email': user.email,
-            'user_collections': assigned_collections.user_collections,
-            'admin_collections': assigned_collections.admin_collections,
-            'su_collections': assigned_collections.su_collections
         },
         expires_delta=access_token_expires
     )
     return {'access_token': access_token, 'token_type': 'bearer'}
+
+
+def check_permissions(token: str, required_level: str, collection_id: Optional[int]) -> None:
+    token_content = decode_access_token(token)
+    permission_repo = PermissionRepository()
+    assigned_collections = permission_repo.get_assigned_collections(int(token_content.sub))
+    if required_level == 'Super User' and assigned_collections.su_collections == []:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='The action requires Super User permissions')
+    if collection_id is None:
+        return
+    if required_level == 'User':
+        if collection_id not in assigned_collections.user_collections and \
+         collection_id not in assigned_collections.admin_collections:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail='The action requires the user to be assigned to the collection'
+            )
+        return
+    if required_level == 'Collection Administrator':
+        if collection_id not in assigned_collections.admin_collections:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, detail='The action requires Collection Administrator permissions'
+            )
+        return
