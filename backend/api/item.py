@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from sqlalchemy.exc import NoResultFound
 
 from repository.item import Item, ItemRepository
+from api.token import check_permissions
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -18,6 +19,10 @@ class CreateItemRequest(BaseModel):
     description: Optional[str]
     photo: Optional[bytes]
     properties: dict[int, str]
+
+
+class CreateItemResponse(BaseModel):
+    item_id: int
 
 
 @router.get(
@@ -70,10 +75,16 @@ async def attach_image_to_item(file: UploadFile, item_id: int, token: str = Depe
     tags=['items'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def create_item(item_with_properties: CreateItemRequest, token: str = Depends(oauth2_scheme)) -> int:
+async def create_item(
+    item_with_properties: CreateItemRequest, token: str = Depends(oauth2_scheme)
+) -> CreateItemResponse:
+    check_permissions(
+        token=token, required_level='Collection Administrator', collection_id=item_with_properties.collection_id
+    )
     item = item_with_properties.dict(exclude={'properties'})
     properties = item_with_properties.dict(include={'properties'})
-    return ItemRepository.create_item(item, properties)
+    item_id = ItemRepository.create_item(item, properties)
+    return CreateItemResponse(item_id=item_id)
 
 
 @router.delete(

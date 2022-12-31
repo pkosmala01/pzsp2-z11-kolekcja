@@ -19,6 +19,10 @@ class CreateCollectionRequest(BaseModel):
     description: Optional[str]
 
 
+class CreateCollectionResponse(BaseModel):
+    collection_id: int
+
+
 class AssignRequest(BaseModel):
     user_id: int
     permission: str
@@ -80,9 +84,12 @@ async def list_collections(token: str = Depends(oauth2_scheme)) -> list[Collecti
     tags=['collections'],
     responses={400: {'detail': 'Invalid request payload'}}
 )
-async def create_collection(collection: CreateCollectionRequest, token: str = Depends(oauth2_scheme)) -> int:
+async def create_collection(
+    collection: CreateCollectionRequest, token: str = Depends(oauth2_scheme)
+) -> CreateCollectionResponse:
     user_id = int(decode_access_token(token).sub)
-    return CollectionRepository.create_collection(collection.dict(), user_id)
+    collection_id = CollectionRepository.create_collection(collection.dict(), user_id)
+    return CreateCollectionResponse(collection_id=collection_id)
 
 
 @router.delete(
