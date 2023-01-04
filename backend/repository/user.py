@@ -26,7 +26,7 @@ class UserRepository():
         bytes = password.encode('utf-8')
         salt = bcrypt.gensalt()
         hash = bcrypt.hashpw(bytes, salt)
-        return hash
+        return hash.decode('utf-8')
 
     def create_user(self, email: str, password: str, name: str) -> int:
         session = get_session()
