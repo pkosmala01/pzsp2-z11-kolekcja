@@ -26,6 +26,19 @@ export namespace CollectionGetAllEndpoint {
   export type Response = Collection[];
 }
 
+export namespace CollectionGetCollectionItemsEndpoint {
+    /**
+     * @description
+     * Request to get all items in a collection
+     */
+    export const path = "/collections/:id/items";
+    export const method = "GET";
+
+    export type Request = {};
+
+    export type Response = Item[];
+}
+
 export namespace CollectionCreateEndpoint {
   /**
    * @description
@@ -199,4 +212,60 @@ export namespace CollectionGetCollectionPermissionsEndpoint {
     export type Request = {};
 
     export type Response = CollectionPermission[];
+}
+
+export namespace CollectionGetItemsFilterByPropertiesEndpoint {
+    /**
+     * @description
+     * Request to get all items in a collection filtered by properties
+     */
+    export const path = "/collections/:id/items/filter";
+    export const method = "GET";
+
+    export type Request = {
+        properties: Property[];
+    };
+
+    export type Response = Item[];
+}
+
+export namespace ItemPostToAllegroEndpoint {
+    /**
+     * @description
+     * Request to post an item to allegro
+     */
+    export const path = "/items/:id/post";
+    export const method = "POST";
+
+    export type Request = {};
+
+    export type Response = {};
+}
+
+export namespace ItemGetAllegroPostStatusEndpoint {
+    /**
+     * @description
+     * Request to get the status of an allegro post
+     */
+    export const path = "/items/:id/post/status";
+    export const method = "GET";
+
+    export type Request = {};
+
+    export type Response = {
+        status: string;
+    };
+}
+
+export namespace CollectionGetAllItemsPostedToAllegroEndpoint {
+    /**
+     * @description
+     * Request to get all items posted to allegro
+     */
+    export const path = "/collections/:id/items/posted";
+    export const method = "GET";
+
+    export type Request = {};
+
+    export type Response = Item[];
 }
