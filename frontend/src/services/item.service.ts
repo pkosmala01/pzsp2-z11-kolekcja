@@ -18,6 +18,11 @@ export const ItemService = {
     return responce.data;
   },
 
+  async deleteItem(itemId: number) {
+    const responce = await authClient.delete(`${ENDPOINT.item}/${itemId}`);
+    return responce.data;
+},
+
   async getItemImage(itemId: number): Promise<string | null> {
 
     const responce = await authClient.get(`/items/${itemId}/image`, {responseType: "arraybuffer"});

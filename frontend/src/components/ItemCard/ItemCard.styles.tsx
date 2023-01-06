@@ -1,6 +1,7 @@
 import {
   Card, Box, CardMedia, CardMediaProps,
-  Skeleton as SkeletonMui
+  Skeleton as SkeletonMui,
+  IconButton
 } from "@mui/material";
 import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import sx from "@mui/system/sx";
@@ -34,3 +35,8 @@ export const CartMediaS = styled(CardMedia)<CardMediaProps>({
 export const Skeleton = styled(SkeletonMui)<CardMediaProps>({
   transform: "none",
 }) as typeof SkeletonMui;
+
+export const IconButtonn = styled(IconButton)(sx({
+    float: "right",
+    marginRight: "1rem"
+}));

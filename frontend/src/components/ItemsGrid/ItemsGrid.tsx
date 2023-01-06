@@ -1,37 +1,43 @@
 import { Grid } from "@mui/material";
-import * as Styled from "./ItemsGrid.styles"
+import * as Styled from "./ItemsGrid.styles";
 import { useCollectionItems } from "../../hook";
 import { ItemCard } from "../ItemCard";
 import { IItemPlainData } from "../../models";
 import ItemCardSkeleton from "../ItemCardSkeleton";
 
 type ItemsGridProps = {
-  collectionId: number,
-}
+  collectionId: number;
+};
 
-const ItemsGrid: React.FC<ItemsGridProps> = ({collectionId}) => {
+const ItemsGrid: React.FC<ItemsGridProps> = ({ collectionId }) => {
 
-  const { data, isLoading, isFetching } = useCollectionItems(collectionId);
+  const { data, isLoading, isFetching, refetch } = useCollectionItems(collectionId);
+
+  const deleteItem = () => {
+    refetch();
+  };
 
   return (
-    <Styled.GridContainer container spacing={2} >
+    <Styled.GridContainer container spacing={2}>
       {isLoading || isFetching
         ? [...Array(4)].map(() => {
-          return (
-            <Grid item >
-              <ItemCardSkeleton />
-            </Grid>
-          )
-        })
+            return (
+              <Grid item>
+                <ItemCardSkeleton />
+              </Grid>
+            );
+          })
         : data!.map((item: IItemPlainData, index: number) => {
-          return (
-            <Grid item>
-              <ItemCard item={item} collectionId={collectionId} />
-            </Grid>
-
-          )
-        })
-      }
+            return (
+              <Grid item>
+                <ItemCard
+                  item={item}
+                  collectionId={collectionId}
+                  deleteItem={deleteItem}
+                />
+              </Grid>
+            );
+          })}
     </Styled.GridContainer>
   );
 };
