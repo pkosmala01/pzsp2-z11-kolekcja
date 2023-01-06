@@ -13,10 +13,6 @@ const ItemsGrid: React.FC<ItemsGridProps> = ({ collectionId }) => {
 
   const { data, isLoading, isFetching, refetch } = useCollectionItems(collectionId);
 
-  const deleteItem = () => {
-    refetch();
-  };
-
   return (
     <Styled.GridContainer container spacing={2}>
       {isLoading || isFetching
@@ -33,7 +29,7 @@ const ItemsGrid: React.FC<ItemsGridProps> = ({ collectionId }) => {
                 <ItemCard
                   item={item}
                   collectionId={collectionId}
-                  deleteItem={deleteItem}
+                  deleteItem={refetch}
                 />
               </Grid>
             );
