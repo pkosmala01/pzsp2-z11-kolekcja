@@ -85,25 +85,30 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {'access_token': access_token, 'token_type': 'bearer'}
 
 
-def check_permissions(token: str, required_level: str, collection_id: Optional[int]) -> None:
-    token_content = decode_access_token(token)
-    permission_repo = PermissionRepository()
-    assigned_collections = permission_repo.get_assigned_collections(int(token_content.sub))
-    if required_level == 'Super User' and assigned_collections.su_collections == []:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='The action requires Super User permissions')
-    if collection_id is None:
-        return
-    if required_level == 'User':
-        if collection_id not in assigned_collections.user_collections and \
-         collection_id not in assigned_collections.admin_collections:
+class PermissionChecker():
+    @staticmethod
+    def check_permissions(token: str, required_level: str, collection_id: Optional[int]) -> None:
+        token_content = decode_access_token(token)
+        permission_repo = PermissionRepository()
+        assigned_collections = permission_repo.get_assigned_collections(int(token_content.sub))
+        if required_level == 'Super User' and assigned_collections.su_collections == []:
             raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail='The action requires the user to be assigned to the collection'
-            )
-        return
-    if required_level == 'Collection Administrator':
-        if collection_id not in assigned_collections.admin_collections:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN, detail='The action requires Collection Administrator permissions'
-            )
-        return
+                status_code=status.HTTP_403_FORBIDDEN, detail='The action requires Super User permissions'
+                )
+        if collection_id is None:
+            return
+        if required_level == 'User':
+            if collection_id not in assigned_collections.user_collections and \
+               collection_id not in assigned_collections.admin_collections:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail='The action requires the user to be assigned to the collection'
+                )
+            return
+        if required_level == 'Collection Administrator':
+            if collection_id not in assigned_collections.admin_collections:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail='The action requires Collection Administrator permissions'
+                )
+            return

@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from sqlalchemy.exc import NoResultFound
 
 from repository.item import Item, ItemRepository
-from api.token import check_permissions
+from api.token import PermissionChecker
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -78,7 +78,8 @@ async def attach_image_to_item(file: UploadFile, item_id: int, token: str = Depe
 async def create_item(
     item_with_properties: CreateItemRequest, token: str = Depends(oauth2_scheme)
 ) -> CreateItemResponse:
-    check_permissions(
+    pc = PermissionChecker()
+    pc.check_permissions(
         token=token, required_level='Collection Administrator', collection_id=item_with_properties.collection_id
     )
     item = item_with_properties.dict(exclude={'properties'})

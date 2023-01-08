@@ -2,3 +2,4 @@
 .env
 piotr.py
 .vscode
+.coverage

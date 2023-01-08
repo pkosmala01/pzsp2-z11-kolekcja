@@ -45,6 +45,8 @@ lokalizację.
     * zawiera kod części frontendowej systemu - aplikacja webowa
 * /minutki
     * krótkie notatki ze spotkań zespołu
+* /oprogramowanie
+    * pliki przeznaczone do oceny przez dr. Roberta Nowaka w ramach konsultacji z zakresu oprogramowania/integracji
 * /prezentacja_srodsem
     * pliki wykorzystywane przez zespół podczas prezentacji śródsemestralnej
 * /projekt_bazy_danych

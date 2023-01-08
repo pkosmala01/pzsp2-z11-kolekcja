@@ -1,1 +1,1 @@
-python3 -m pytest --cov-report term-missing --cov=. tests/
+pytest --cov-report term-missing --cov=api --cov=repository tests/

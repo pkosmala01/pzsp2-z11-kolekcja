@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from sqlalchemy.orm.exc import NoResultFound
 
-from api.token import decode_access_token, check_permissions
+from api.token import decode_access_token, PermissionChecker
 from repository.collection import Collection, CollectionRepository
 from repository.item import Item, ItemRepository
 from repository.permission import PermissionRepository
@@ -34,7 +34,8 @@ class AssignRequest(BaseModel):
     responses={404: {'detail': 'Collection not found'}}
 )
 async def get_collection(collection_id: int, token: str = Depends(oauth2_scheme)) -> Collection:
-    check_permissions(token=token, required_level='User', collection_id=collection_id)
+    pc = PermissionChecker()
+    pc.check_permissions(token=token, required_level='User', collection_id=collection_id)
     try:
         return CollectionRepository.get_collection_by_id(collection_id=collection_id)
     except NoResultFound:
@@ -59,7 +60,8 @@ async def get_collections_for_user(user_id: int, token: str = Depends(oauth2_sch
     responses={404: {'detail': 'Collection not found'}}
 )
 async def get_collection_items(collection_id: int, token: str = Depends(oauth2_scheme)) -> list[Item]:
-    check_permissions(token=token, required_level='User', collection_id=collection_id)
+    pc = PermissionChecker()
+    pc.check_permissions(token=token, required_level='User', collection_id=collection_id)
     try:
         return ItemRepository.get_items_for_collection_id(collection_id=collection_id)
     except NoResultFound:
@@ -98,7 +100,8 @@ async def create_collection(
     responses={404: {'detail': 'Collection not found'}}
 )
 async def delete_collection(collection_id: int, token: str = Depends(oauth2_scheme)) -> None:
-    check_permissions(token=token, required_level='Collection Administrator', collection_id=collection_id)
+    pc = PermissionChecker()
+    pc.check_permissions(token=token, required_level='Collection Administrator', collection_id=collection_id)
     try:
         return CollectionRepository.delete_collection(collection_id)
     except NoResultFound:
@@ -111,6 +114,7 @@ async def delete_collection(collection_id: int, token: str = Depends(oauth2_sche
     responses={404: {'detail': 'User or collection not found'}}
 )
 async def assign_user(collection_id: int, assign_request: AssignRequest, token: str = Depends(oauth2_scheme)) -> None:
-    check_permissions(token=token, required_level='Collection Administrator', collection_id=collection_id)
+    pc = PermissionChecker()
+    pc.check_permissions(token=token, required_level='Collection Administrator', collection_id=collection_id)
     permission_repo = PermissionRepository()
     permission_repo.assign_user(assign_request.user_id, collection_id, assign_request.permission)
