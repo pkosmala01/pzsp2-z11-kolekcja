@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
-from repository.model.base import Base
+from repository.model.base import Base, BaseTable
 
 
-class PermissionTable(Base, SerializerMixin):
+class PermissionTable(Base, SerializerMixin, BaseTable):
     __tablename__ = "permissions"
     serialize_rules = ('-collection_user.permission',)
 

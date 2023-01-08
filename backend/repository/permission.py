@@ -1,5 +1,6 @@
 from repository.database import get_session, OrmBaseModel
 from repository.model import CollectionUserTable, PermissionTable
+from repository.base import BaseRepository
 
 
 class AssignedCollections(OrmBaseModel):
@@ -8,7 +9,7 @@ class AssignedCollections(OrmBaseModel):
     su_collections: list[int]
 
 
-class PermissionRepository():
+class PermissionRepository(BaseRepository):
     @staticmethod
     def get_permission_ids() -> dict[str, int]:
         session = get_session()

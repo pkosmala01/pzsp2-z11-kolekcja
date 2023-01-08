@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
-from repository.model.base import Base
+from repository.model.base import Base, BaseTable
 
 
-class CollectionTable(Base, SerializerMixin):
+class CollectionTable(Base, SerializerMixin, BaseTable):
     __tablename__ = "collections"
     serialize_rules = ('-users.collection', '-items.collection')
 

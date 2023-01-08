@@ -2,6 +2,7 @@ from typing import Optional, Any
 
 from repository.database import get_session, OrmBaseModel
 from repository.model import ItemTable, PropertyValueTable
+from repository.base import BaseRepository
 
 
 class Item(OrmBaseModel):
@@ -13,7 +14,7 @@ class Item(OrmBaseModel):
     properties: list
 
 
-class ItemRepository:
+class ItemRepository(BaseRepository):
     @staticmethod
     def get_item_by_id(item_id: int) -> Item:
         session = get_session()

@@ -2,10 +2,10 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
 
-from repository.model.base import Base
+from repository.model.base import Base, BaseTable
 
 
-class UserTable(Base, SerializerMixin):
+class UserTable(Base, SerializerMixin, BaseTable):
     __tablename__ = "users"
     serialize_rules = ('-user_collections.user', '-password_hash')
 

@@ -1,0 +1,6 @@
+class BaseRepository():
+    ...
+
+
+class BaseException(Exception):
+    ...

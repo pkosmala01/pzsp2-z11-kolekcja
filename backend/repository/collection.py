@@ -2,9 +2,10 @@ from typing import Optional, Any
 
 from repository.database import get_session, OrmBaseModel
 from repository.model import CollectionTable, CollectionUserTable
+from repository.base import BaseException, BaseRepository
 
 
-class CollectionNotFound(Exception):
+class CollectionNotFound(BaseException):
     ...
 
 
@@ -14,7 +15,7 @@ class Collection(OrmBaseModel):
     description: Optional[str]
 
 
-class CollectionRepository:
+class CollectionRepository(BaseRepository):
     @staticmethod
     def get_collection_by_id(collection_id: int) -> Collection:
         serialize_rules = ('-users.collection_id', '-users.permission_level', '-users.user_id', '-collection_id')

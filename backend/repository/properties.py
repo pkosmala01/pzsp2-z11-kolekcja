@@ -1,8 +1,9 @@
 from repository.database import get_session
 from repository.model import PropertyDefinitionTable
+from repository.base import BaseRepository
 
 
-class PropertiesRepository:
+class PropertiesRepository(BaseRepository):
     @staticmethod
     def list_properties() -> list[PropertyDefinitionTable]:
         serialize_rules = ('-property_value',)

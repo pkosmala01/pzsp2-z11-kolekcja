@@ -2,6 +2,7 @@ import bcrypt
 
 from repository.database import get_session, OrmBaseModel
 from repository.model import UserTable
+from repository.base import BaseRepository
 
 
 class User(OrmBaseModel):
@@ -11,7 +12,7 @@ class User(OrmBaseModel):
     name: str
 
 
-class UserRepository():
+class UserRepository(BaseRepository):
     @staticmethod
     def get_user_by_email(email: str) -> User:
         session = get_session()

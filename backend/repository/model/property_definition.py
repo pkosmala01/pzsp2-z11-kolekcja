@@ -2,10 +2,10 @@ from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
 
-from repository.model.base import Base
+from repository.model.base import Base, BaseTable
 
 
-class PropertyDefinitionTable(Base, SerializerMixin):
+class PropertyDefinitionTable(Base, SerializerMixin, BaseTable):
     __tablename__ = "property_definitions"
     serialize_rules = ('-property_value.property_definition',)
 
