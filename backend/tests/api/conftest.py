@@ -1,5 +1,5 @@
 import pytest
-from datetime import datetime, timedelta
+from datetime import timedelta
 from api.token import create_access_token
 
 

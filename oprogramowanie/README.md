@@ -29,7 +29,7 @@ lokalizację.
 * Wygodne przeglądanie zawartości kolekcji
 
 ## Testy jednostkowe
-W ramach projektu zrealizowane zostały testy jednostkowe w liczbie XX dla endpointów istniejących w aplikacji, uzyskując pokrycie równe XX% dla XXX linii kodu, poniżej przedstawiamy wyjście z programu pytest-cov:
+W ramach projektu zrealizowane zostały testy jednostkowe w liczbie 20 dla wszystkich endpointów istniejących obecnie w aplikacji, uzyskując pokrycie równe 75% dla 520 linii kodu, poniżej przedstawiamy wyjście z programu pytest-cov:
 
 ![raport pokrycia](img/coverage.png)
 

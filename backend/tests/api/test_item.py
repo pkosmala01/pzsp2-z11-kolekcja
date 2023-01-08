@@ -55,3 +55,11 @@ class TestApiItem:
             headers={'Authorization': f'Bearer {get_test_auth_token}'}
         )
         assert response.status_code == 200
+
+    @patch.object(ItemRepository, 'delete_item')
+    def test_delete_item(self, mock_object, get_test_auth_token):
+        response = client.delete(
+            '/items/1',
+            headers={'Authorization': f'Bearer {get_test_auth_token}'}
+        )
+        assert response.status_code == 200

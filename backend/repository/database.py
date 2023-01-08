@@ -26,7 +26,8 @@ def get_engine():
         db_password = os.getenv('DB_PASSWORD')
         if db_password is None or db_password == '':
             raise Exception("DB password not set")
-        connection_uri = f"{config['dialect']}+{config['driver']}://{config['username']}:{db_password}@{config['host']}:{config['port']}/{config['dbname']}"
+        connection_uri = f"{config['dialect']}+{config['driver']}://{config['username']}:{db_password}@"
+        "{config['host']}:{config['port']}/{config['dbname']}"
         return create_engine(connection_uri)
 
 
