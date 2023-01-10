@@ -47,6 +47,25 @@ class TestApiItem:
         assert response.json() == {'detail': 'Item not found'}
 
     @patch.object(PermissionChecker, 'check_permissions')
+    @patch.object(ItemRepository, 'list_items', return_value=[item_1])
+    def test_list_items(self, auth_mock, mock_object, get_test_auth_token):
+        response = client.get(
+            '/items',
+            headers={'Authorization': f'Bearer {get_test_auth_token}'}
+        )
+        assert response.status_code == 200
+        assert response.json() == [
+            {
+                'item_id': 101,
+                'collection_id': 100,
+                'name': 'Test',
+                'properties': [1, 2],
+                'description': None,
+                'photo': None
+            }
+        ]
+
+    @patch.object(PermissionChecker, 'check_permissions')
     @patch.object(ItemRepository, 'create_item', return_value=1)
     def test_create_item(self, auth_mock, mock_object, get_test_auth_token):
         response = client.post(
@@ -55,6 +74,23 @@ class TestApiItem:
             headers={'Authorization': f'Bearer {get_test_auth_token}'}
         )
         assert response.status_code == 200
+
+    @patch.object(ItemRepository, 'update_item', return_value=item_1)
+    def test_update_item(self, mock_object, get_test_auth_token):
+        response = client.put(
+            '/items/101',
+            json={'name': 'Test'},
+            headers={'Authorization': f'Bearer {get_test_auth_token}'}
+        )
+        assert response.status_code == 200
+        assert response.json() == {
+                'item_id': 101,
+                'collection_id': 100,
+                'name': 'Test',
+                'properties': [1, 2],
+                'description': None,
+                'photo': None
+            }
 
     @patch.object(ItemRepository, 'delete_item')
     def test_delete_item(self, mock_object, get_test_auth_token):

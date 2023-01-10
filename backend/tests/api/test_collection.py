@@ -9,7 +9,7 @@ from api.token import PermissionChecker
 from main import app
 from repository.collection import CollectionRepository, Collection
 from repository.item import ItemRepository, Item
-from repository.permission import PermissionRepository
+from repository.permission import PermissionRepository, PermissionResponse
 
 client = TestClient(app)
 
@@ -23,6 +23,12 @@ collection_2 = Collection(
     collection_id=200,
     name='Test Collection 2',
     description='description'
+)
+
+permission_1 = PermissionResponse(
+    user_id=1,
+    collection_id=100,
+    permission_level=2
 )
 
 
@@ -130,6 +136,17 @@ class TestApiCollection:
         assert response.status_code == 200
 
     @patch.object(PermissionChecker, 'check_permissions')
+    @patch.object(CollectionRepository, 'update_collection', return_value=collection_2)
+    def test_update_collection(self, auth_mock, mock_object, get_test_auth_token):
+        response = client.put(
+            '/collections/1',
+            json={'name': 'Test Collection'},
+            headers={'Authorization': f'Bearer {get_test_auth_token}'}
+        )
+        assert response.status_code == 200
+        assert response.json() == {'collection_id': 200, 'name': 'Test Collection 2', 'description': 'description'}
+
+    @patch.object(PermissionChecker, 'check_permissions')
     @patch.object(CollectionRepository, 'delete_collection', return_value=1)
     def test_delete_collection(self, auth_mock, mock_object, get_test_auth_token):
         response = client.delete(
@@ -139,11 +156,30 @@ class TestApiCollection:
         assert response.status_code == 200
 
     @patch.object(PermissionChecker, 'check_permissions')
+    @patch.object(PermissionRepository, 'get_permissions', return_value=permission_1)
+    def test_get_permission(self, auth_mock, mock_object, get_test_auth_token):
+        response = client.get(
+            '/collections/100/users',
+            headers={'Authorization': f'Bearer {get_test_auth_token}'}
+        )
+        assert response.status_code == 200
+        assert response.json() == {'user_id': 1, 'collection_id': 100, 'permission_level': 2}
+
+    @patch.object(PermissionChecker, 'check_permissions')
     @patch.object(PermissionRepository, 'assign_user')
     def test_assign_user(self, auth_mock, mock_object, get_test_auth_token):
         response = client.post(
             '/collections/1/users',
             json={'user_id': 1, 'permission': 'User'},
+            headers={'Authorization': f'Bearer {get_test_auth_token}'}
+        )
+        assert response.status_code == 200
+
+    @patch.object(PermissionChecker, 'check_permissions')
+    @patch.object(PermissionRepository, 'delete_permission')
+    def test_delete_user(self, auth_mock, mock_object, get_test_auth_token):
+        response = client.delete(
+            '/collections/100/users/1',
             headers={'Authorization': f'Bearer {get_test_auth_token}'}
         )
         assert response.status_code == 200

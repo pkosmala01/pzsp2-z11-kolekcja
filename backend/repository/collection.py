@@ -58,6 +58,14 @@ class CollectionRepository(BaseRepository):
         return collection_object.collection_id
 
     @staticmethod
+    def update_collection(update_dict: dict[str, Any], collection_id: int) -> Collection:
+        session = get_session()
+        collection = session.query(CollectionTable).filter(CollectionTable.collection_id == collection_id)
+        collection.update(update_dict)
+        session.commit()
+        return Collection.from_orm(collection.one())
+
+    @staticmethod
     def delete_collection(collection_id: int):
         session = get_session()
         session.query(CollectionUserTable).filter(

@@ -4,6 +4,7 @@ from typing import Union, Optional
 from fastapi import Depends, APIRouter, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt
+from jose.exceptions import ExpiredSignatureError
 from passlib.context import CryptContext
 from pydantic import BaseModel
 
@@ -61,7 +62,10 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
 
 
 def decode_access_token(token: str) -> TokenData:
-    decoded_jwt = jwt.decode(token=token, key=SECRET_KEY, algorithms=[ALGORITHM, ])
+    try:
+        decoded_jwt = jwt.decode(token=token, key=SECRET_KEY, algorithms=[ALGORITHM, ])
+    except ExpiredSignatureError:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Token has expired')
     return TokenData(**decoded_jwt)
 
 
@@ -87,10 +91,12 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 class PermissionChecker():
     @staticmethod
-    def check_permissions(token: str, required_level: str, collection_id: Optional[int]) -> None:
+    def check_permissions(token: str, required_level: str, collection_id: Optional[int] = None) -> None:
         token_content = decode_access_token(token)
         permission_repo = PermissionRepository()
         assigned_collections = permission_repo.get_assigned_collections(int(token_content.sub))
+        if assigned_collections.su_collections is not None:
+            return
         if required_level == 'Super User' and assigned_collections.su_collections == []:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN, detail='The action requires Super User permissions'

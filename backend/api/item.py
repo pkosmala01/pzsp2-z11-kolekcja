@@ -21,6 +21,13 @@ class CreateItemRequest(BaseModel):
     properties: dict[int, str]
 
 
+class UpdateItemRequest(BaseModel):
+    name: Optional[str]
+    collection_id: Optional[int]
+    description: Optional[str]
+    properties: Optional[dict[int, str]]
+
+
 class CreateItemResponse(BaseModel):
     item_id: int
 
@@ -35,6 +42,20 @@ async def get_item(item_id: int, token: str = Depends(oauth2_scheme)) -> Item:
         return ItemRepository.get_item_by_id(item_id=item_id)
     except NoResultFound:
         raise HTTPException(status_code=404, detail='Item not found') from None
+
+
+@router.get(
+    "/items",
+    tags=['items'],
+    responses={404: {'detail': 'No items'}}
+)
+async def list_items(token: str = Depends(oauth2_scheme)) -> list[Item]:
+    pc = PermissionChecker()
+    pc.check_permissions(token=token, required_level='Super User')
+    try:
+        return ItemRepository.list_items()
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='No items') from None
 
 
 @router.get(
@@ -86,6 +107,20 @@ async def create_item(
     properties = item_with_properties.dict(include={'properties'})
     item_id = ItemRepository.create_item(item, properties)
     return CreateItemResponse(item_id=item_id)
+
+
+@router.put(
+    "/items/{item_id}",
+    tags=['items'],
+    responses={404: {'detail': 'Item not found'}}
+)
+async def update_item(
+    item: UpdateItemRequest, item_id: int, token: str = Depends(oauth2_scheme)
+) -> Item:
+    try:
+        return ItemRepository.update_item(item.dict(exclude_none=True), item_id)
+    except NoResultFound:
+        raise HTTPException(status_code=404, detail='Item not found') from None
 
 
 @router.delete(

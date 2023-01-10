@@ -25,6 +25,12 @@ class ItemRepository(BaseRepository):
         return result.to_dict()
 
     @staticmethod
+    def list_items() -> list[Item]:
+        session = get_session()
+        results = session.query(ItemTable).all()
+        return [result.to_dict() for result in results]
+
+    @staticmethod
     def get_image_for_item(item_id: int) -> ItemTable:
         session = get_session()
         query = session.query(ItemTable).filter(
@@ -58,6 +64,14 @@ class ItemRepository(BaseRepository):
             session.add(property_value)
         session.commit()
         return item_object.item_id
+
+    @staticmethod
+    def update_item(update_dict: dict[str, Any], item_id: int) -> Item:
+        session = get_session()
+        item = session.query(ItemTable).filter(ItemTable.item_id == item_id)
+        item.update(update_dict)
+        session.commit()
+        return Item.from_orm(item.one())
 
     @staticmethod
     def delete_item(item_id: int):

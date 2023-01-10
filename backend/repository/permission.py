@@ -9,6 +9,12 @@ class AssignedCollections(OrmBaseModel):
     su_collections: list[int]
 
 
+class PermissionResponse(OrmBaseModel):
+    user_id: int
+    collection_id: int
+    permission_level: int
+
+
 class PermissionRepository(BaseRepository):
     @staticmethod
     def get_permission_ids() -> dict[str, int]:
@@ -37,6 +43,16 @@ class PermissionRepository(BaseRepository):
             su_collections=su_collections
         )
 
+    @staticmethod
+    def get_permissions(collection_id: int) -> list[PermissionResponse]:
+        session = get_session()
+        results = session.query(
+            CollectionUserTable
+        ).filter(
+            CollectionUserTable.collection_id == collection_id
+        ).all()
+        return [PermissionResponse.from_orm(result) for result in results]
+
     def assign_user(self, user_id: int, collection_id: int, permission: str) -> None:
         session = get_session()
         permission_mapping = self.get_permission_ids()
@@ -55,4 +71,15 @@ class PermissionRepository(BaseRepository):
             session.add(collection_user)
         else:
             collection_user.permission_level = permission_mapping[permission]
+        session.commit()
+
+    @staticmethod
+    def delete_permission(collection_id: int, user_id: int) -> None:
+        session = get_session()
+        session.query(
+            CollectionUserTable
+        ).filter(
+            CollectionUserTable.user_id == user_id,
+            CollectionUserTable.collection_id == collection_id
+        ).delete()
         session.commit()
