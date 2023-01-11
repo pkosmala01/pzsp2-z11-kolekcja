@@ -6,6 +6,7 @@ export const ENDPOINT = {
   collectionsList: '/collections',
   createItem: '/items',
   item: '/items',
+  user: '/users',
 };
 
 export const API = 'http://localhost:8080';

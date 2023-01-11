@@ -23,6 +23,12 @@ export type CollectionPermission = {
     user: User
 }
 
+export type CollectionPermissionMock = {
+    user_id: number,
+    permission_level: number,
+    collection_id: number,
+}
+
 export type Collection = {
     id: number,
     name: string,

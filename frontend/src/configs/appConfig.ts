@@ -181,7 +181,7 @@ export namespace CollectionAddCollectionPermissionEndpoint {
     export const method = "POST";
 
     export type Request = {
-        userId: number;
+        email: string;
         permissionLevel: number;
     };
 

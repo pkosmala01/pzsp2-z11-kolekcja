@@ -13,6 +13,7 @@ import {
   LoginPage,
   NotFoundPage
 } from "../pages";
+import ManageUsers from "../pages/MagageUsersPage";
 
 const routes: { title: string; link: string }[] = [
   {
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="collection/:collectionId" element={<RequireAuth><CollectionItemsPage /></RequireAuth>}/>
         <Route path="collection/:collectionId/items/:itemId" element={<RequireAuth><ItemPage /></RequireAuth>}/>
         <Route path="createItem/:collectionId" element={<RequireAuth><CreateItemPage /></RequireAuth>}/>
+        <Route path="manage-users/:collectionId" element={<RequireAuth><ManageUsers /></RequireAuth>}/>
         <Route path="*" element={<NotFoundPage/>}/>
       </Route>
     </Routes>
